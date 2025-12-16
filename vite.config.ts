@@ -26,6 +26,7 @@ export default defineConfig({
     process.env.HTTPS && mkcert(),
   ],
   build: {
+    chunkSizeWarningLimit: 2000,
     target: 'esnext',
     minify: 'terser'
   },
