@@ -21,6 +21,7 @@ try {
   const { tgWebAppPlatform: platform } = launchParams;
   const debug = (launchParams.tgWebAppStartParam || '').includes('debug')
     || import.meta.env.DEV;
+  console.log(debug ? 'Debug mode is ON' : 'Debug mode is OFF');
 
   // Configure all application dependencies.
   await init({

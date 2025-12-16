@@ -10,6 +10,7 @@ import {
   emitEvent,
   miniApp,
   backButton,
+  mainButton
 } from '@tma.js/sdk-react';
 
 /**
@@ -72,4 +73,11 @@ export async function init(options: {
       viewport.bindCssVars();
     });
   }
+
+    if (mainButton.mount.ifAvailable()) {
+      mainButton.mount();
+      console.log('Main button mounted');
+    };
+    mainButton.setText('Start Workout');
+    mainButton.show();
 }

@@ -1,15 +1,22 @@
-import { Section, Cell, Image, List } from '@telegram-apps/telegram-ui';
-import type { FC } from 'react';
+// import { Section, Cell, Image, List, Tabbar } from "@telegram-apps/telegram-ui";
+import type { FC } from "react";
 
-import { Link } from '@/components/Link/Link.tsx';
-import { Page } from '@/components/Page.tsx';
+// import { Link } from "@/components/Link/Link.tsx";
+import { Page } from "@/components/Page.tsx";
 
-import tonSvg from './ton.svg';
+// import { FiHome, FiClock, FiBarChart2, FiUser } from "react-icons/fi";
+
+// import tonSvg from "./ton.svg";
 
 export const IndexPage: FC = () => {
   return (
     <Page back={false}>
-      <List>
+      <div style={{ padding: "16px", textAlign: "center" }}>
+        <h2>Добро пожаловать 👋</h2>
+        <p>Выберите вкладку снизу, чтобы перейти на нужную страницу.</p>
+      </div>
+
+      {/* <List>
         <Section
           header="Features"
           footer="You can use these pages to learn more about features, provided by Telegram Mini Apps and other useful projects"
@@ -37,7 +44,7 @@ export const IndexPage: FC = () => {
             <Cell subtitle="Telegram application palette information">Theme Parameters</Cell>
           </Link>
         </Section>
-      </List>
+      </List> */}
     </Page>
   );
 };
