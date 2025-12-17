@@ -27,11 +27,9 @@ export function Page({
   }, [back]);
 
   return (
-    <div
-      style={{
-        paddingBottom: showNav ? "56px" : "0",
-      }}
-    >
+     <div style={{
+      paddingBottom: showNav? "56px" : "0",
+    }}>
       {children}
       {showNav && <BottomNav />}
     </div>
