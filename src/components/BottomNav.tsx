@@ -27,11 +27,11 @@ export const BottomNav: FC = () => {
         maxWidth: "420px",
         padding: "8px 0",
         backgroundColor: "rgba(var(--tg-theme-bg-color), 0.15)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blue(12px)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
         borderRadius: "16px",
         border: "1px solid rgba(255,255,255, 0.15)",
-        boxShadow: "0 0 24px 12px rgba(0,0,0,0.3)",
+        boxShadow: "0 0 24px 12px rgba(var(--tg-theme-bg-color), 0.3)",
         zIndex: 1000,
       }}
     >
