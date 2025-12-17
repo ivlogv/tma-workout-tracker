@@ -17,18 +17,21 @@ export const BottomNav: FC = () => {
     <nav
       style={{
         position: "fixed",
-        bottom: "16px",
+        bottom: "8px",
         left: "50%",
         transform: "translateX(-50%)",
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
-        width: "90%",
+        width: "calc(100% - 24px)",
         maxWidth: "420px",
         padding: "8px 0",
-        backgroundColor: "var(--tg-theme-bg-color)",
+        backgroundColor: "rgba(var(--tg-theme-bg-color), 0.15)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
         borderRadius: "16px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+        border: "1px solid rgba(255,255,255, 0.15)",
+        boxShadow: "0 0 24px 12px rgba(0, 0, 0, 0.15)",
         zIndex: 1000,
       }}
     >
