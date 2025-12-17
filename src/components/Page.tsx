@@ -12,7 +12,7 @@ export function Page({
    * True if it is allowed to go back from this page.
    */
   back?: boolean;
-  showNav?: boolean
+  showNav?: boolean;
 }>) {
   const navigate = useNavigate();
 
@@ -27,9 +27,13 @@ export function Page({
   }, [back]);
 
   return (
-    <>
+    <div
+      style={{
+        paddingBottom: showNav ? "56px" : "0",
+      }}
+    >
       {children}
       {showNav && <BottomNav />}
-    </>
+    </div>
   );
 }
