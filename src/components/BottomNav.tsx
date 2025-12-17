@@ -17,7 +17,7 @@ export const BottomNav: FC = () => {
     <nav
       style={{
         position: "fixed",
-        bottom: "16px",
+        bottom: "12px",
         left: "50%",
         transform: "translateX(-50%)",
         display: "flex",
@@ -28,7 +28,7 @@ export const BottomNav: FC = () => {
         padding: "8px 0",
         backgroundColor: "var(--tg-theme-bg-color)",
         borderRadius: "16px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+        boxShadow: "0 0 24px 12px rgba(0,0,0,0.3)",
         zIndex: 1000,
       }}
     >
