@@ -17,7 +17,7 @@ export const BottomNav: FC = () => {
     <nav
       style={{
         position: "fixed",
-        bottom: "12px",
+        bottom: "8px",
         left: "50%",
         transform: "translateX(-50%)",
         display: "flex",
