@@ -10,7 +10,9 @@ export const IndexHeader: FC = () => {
   const avatarImage = user?.photo_url ?? "";
 
   return (
-    <Section>
+    <Section style={{
+      margin: "16px 0"
+    }}>
       <Cell
         before={
           <Avatar
