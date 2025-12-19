@@ -29,7 +29,9 @@ export function Page({
   return (
     <div
       style={{
-        paddingBottom: showNav ? "56px" : "0",
+        paddingBottom: showNav ? "64px" : "0",
+        paddingLeft: "12px",
+        paddingRight: "12px",
       }}
     >
       {children}
