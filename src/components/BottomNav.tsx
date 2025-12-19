@@ -26,12 +26,12 @@ export const BottomNav: FC = () => {
         width: "calc(100% - 24px)",
         maxWidth: "420px",
         padding: "8px 0",
-        backgroundColor: "rgba(var(--tg-theme-bg-color), 0.15)",
-        backdropFilter: "blur(16px) brightness(0.87)",
-        WebkitBackdropFilter: "blur(16px) brightness(0.87)",
+        backgroundColor: "rgba(var(--tg-theme-bg-color), 0.1)",
+        backdropFilter: "blur(8px) brightness(0.8)",
+        WebkitBackdropFilter: "blur(8px) brightness(0.8)",
         borderRadius: "16px",
         border: "1px solid rgba(255,255,255, 0.15)",
-        boxShadow: "0 0 24px 12px rgba(0, 0, 0, 0.15)",
+        boxShadow: "0 16px 12px -4px rgba(0, 0, 0, 0.4)",
         zIndex: 1000,
       }}
     >
