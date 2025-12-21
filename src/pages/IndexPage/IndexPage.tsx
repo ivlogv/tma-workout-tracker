@@ -4,6 +4,8 @@ import { Page } from "@/components/Page.tsx";
 import { IndexHeader } from "./IndexHeader";
 import { Workout } from "@/types/workout";
 import { WeekCalendar } from "./WeekCalendar";
+import { TodayWorkoutCard } from "./TodayWorkoutCard";
+import { WeeklyProgress } from "./WeeklyProgress";
 // import { useInitDataContext } from "@/context/InitDataContext";
 
 export const IndexPage: FC = () => {
@@ -18,6 +20,7 @@ export const IndexPage: FC = () => {
     title: "Кардио тренировка",
     description: "30 минут беговой дорожки и велотренажёр",
     created_at: new Date().toISOString(),
+    is_completed: true
   },
   {
     id: "2",
@@ -26,6 +29,16 @@ export const IndexPage: FC = () => {
     title: "Силовая тренировка",
     description: "Жим лёжа, приседания, подтягивания",
     created_at: new Date(Date.now() - 86400000).toISOString(),
+    is_completed: false
+  },
+  {
+    id: "2",
+    user_id: "user_123",
+    workout_date: new Date(Date.now() - 86400000*3).toISOString(), // вчера
+    title: "Силовая тренировка",
+    description: "Жим лёжа, приседания, подтягивания",
+    created_at: new Date(Date.now() - 86400000).toISOString(),
+    is_completed: true
   },
 ];
 
@@ -34,6 +47,8 @@ export const IndexPage: FC = () => {
     <Page back={false}>
       <IndexHeader />
       <WeekCalendar workouts={workouts} />
+      <TodayWorkoutCard todayWorkout={workouts[0]} />
+      <WeeklyProgress workouts={workouts} />
     </Page>
   );
 };

@@ -6,4 +6,5 @@ export interface Workout {
   title: string;
   description?: string | null;
   created_at: string;
+  is_completed: boolean;
 }

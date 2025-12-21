@@ -8,9 +8,6 @@ export function Page({
   back = true,
   showNav = true,
 }: PropsWithChildren<{
-  /**
-   * True if it is allowed to go back from this page.
-   */
   back?: boolean;
   showNav?: boolean;
 }>) {
@@ -29,9 +26,9 @@ export function Page({
   return (
     <div
       style={{
-        paddingBottom: showNav ? "64px" : "0",
-        paddingLeft: "12px",
-        paddingRight: "12px",
+        paddingBottom: showNav ? "72px" : "0",
+        // paddingLeft: "12px",
+        // paddingRight: "12px",
       }}
     >
       {children}

@@ -26,18 +26,24 @@ export const WeekCalendar: FC<{ workouts: Workout[] }> = ({ workouts }) => {
   return (
     <div
       style={{
+        margin: "0 12px",
         display: "flex",
         justifyContent: "space-between",
         marginBottom: "24px",
       }}
     >
       {weekDates.map((date) => {
-        const isActive = workouts.some(
-          (w) => new Date(w.workout_date).toDateString() === date.toDateString()
+        const key = date.toDateString();
+        const dayWorkouts = workouts.filter(
+          (w) => new Date(w.workout_date).toDateString() === key
         );
+
+        const hasWorkout = dayWorkouts.length > 0;
+        const isCompleted = dayWorkouts.some((w) => w.is_completed);
+        const isToday = key === today;
+
         const day = date.toLocaleDateString("ru-RU", { weekday: "short" });
         const num = date.getDate();
-        const isToday = date.toDateString() === today;
 
         return (
           <div
@@ -63,10 +69,13 @@ export const WeekCalendar: FC<{ workouts: Workout[] }> = ({ workouts }) => {
                 width: "32px",
                 height: "32px",
                 borderRadius: "50%",
-                backgroundColor: isActive
-                  ? "var(--tg-theme-button-color)"
-                  : "var(--tg-theme-secondary-bg-color)",
-                color: isActive
+                fontFamily: "var(--tg-theme-font-family, sans-serif)",
+                backgroundColor: isCompleted
+                  ? "var(--tg-theme-button-color)" // выполнено
+                  : hasWorkout
+                  ? "var(--tg-theme-bg-color)" // запланировано
+                  : "transparent",
+                color: isCompleted
                   ? "var(--tg-theme-button-text-color)"
                   : "var(--tg-theme-text-color)",
                 fontWeight: 600,
@@ -75,7 +84,7 @@ export const WeekCalendar: FC<{ workouts: Workout[] }> = ({ workouts }) => {
                 justifyContent: "center",
               }}
             >
-              {isActive ? <FiCheck /> : num}
+              {isCompleted  ? <FiCheck /> : num}
             </div>
           </div>
         );

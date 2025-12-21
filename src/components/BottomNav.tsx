@@ -22,7 +22,7 @@ export const BottomNav: FC = () => {
           left: "50%",
           transform: "translateX(-50%)",
           width: "100%",
-          height: "72px",
+          height: "86px",
           background:
             "linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0))",
           zIndex: 999,
@@ -43,14 +43,8 @@ export const BottomNav: FC = () => {
           maxWidth: "420px",
           padding: "8px 0",
           backgroundColor: "var(--tg-theme-bg-color)",
-          // backgroundColor: "rgba(var(--tg-theme-bottom-bar-bg-color), 0.1)",
-          // backdropFilter: "blur(8px)",
-          // WebkitBackdropFilter: "blur(8px)",
-          // backdropFilter: "blur(8px) brightness(0.8)",
-          // WebkitBackdropFilter: "blur(8px) brightness(0.8)",
           borderRadius: "16px",
           border: "1px solid rgba(255,255,255, 0.15)",
-          boxShadow: "0 16px 12px -4px rgba(0, 0, 0, 0.4)",
           zIndex: 1000,
         }}
       >

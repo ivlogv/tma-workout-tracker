@@ -1,5 +1,21 @@
+html, body, #root {
+  user-select: none;          /* основное свойство */
+  -webkit-user-select: none;  /* Safari */
+  -ms-user-select: none;      /* IE/Edge */
+}
+
 body {
   background: var(--tg-theme-secondary-bg-color, white);
   padding: 0;
   margin: 0;
+  overflow-y: scroll; /* чтобы не прыгала верстка */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+input, textarea {
+  user-select: text; /* разрешаем выделение только внутри форм */
 }
