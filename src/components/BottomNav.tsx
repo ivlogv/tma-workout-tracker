@@ -14,45 +14,59 @@ export const BottomNav: FC = () => {
   ];
 
   return (
-    <nav
-      style={{
-        position: "fixed",
-        bottom: "8px",
-        left: "50%",
-        transform: "translateX(-50%)",
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        width: "calc(100% - 24px)",
-        maxWidth: "420px",
-        padding: "8px 0",
-        backgroundColor: "rgba(var(--tg-theme-bottom-bar-bg-color), 0.1)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
-        // backdropFilter: "blur(8px) brightness(0.8)",
-        // WebkitBackdropFilter: "blur(8px) brightness(0.8)",
-        borderRadius: "16px",
-        border: "1px solid rgba(255,255,255, 0.15)",
-        boxShadow: "0 16px 12px -4px rgba(0, 0, 0, 0.4)",
-        zIndex: 1000,
-      }}
-    >
-      {items.map(({ id, Icon }) => (
-        <Link
-          key={id}
-          to={id}
-          className="nav-link"
-        >
-          <Icon
-            size={22}
-            color={
-              location.pathname === id
-                ? "var(--tg-theme-button-color)"
-                : "var(--tg-theme-text-color)"
-            }
-          />
-        </Link>
-      ))}
-    </nav>
+    <>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "-1px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "100%",
+          height: "72px",
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0))",
+          zIndex: 999,
+          pointerEvents: "none",
+        }}
+      />
+
+      <nav
+        style={{
+          position: "fixed",
+          bottom: "8px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          width: "calc(100% - 24px)",
+          maxWidth: "420px",
+          padding: "8px 0",
+          backgroundColor: "var(--tg-theme-bg-color)",
+          // backgroundColor: "rgba(var(--tg-theme-bottom-bar-bg-color), 0.1)",
+          // backdropFilter: "blur(8px)",
+          // WebkitBackdropFilter: "blur(8px)",
+          // backdropFilter: "blur(8px) brightness(0.8)",
+          // WebkitBackdropFilter: "blur(8px) brightness(0.8)",
+          borderRadius: "16px",
+          border: "1px solid rgba(255,255,255, 0.15)",
+          boxShadow: "0 16px 12px -4px rgba(0, 0, 0, 0.4)",
+          zIndex: 1000,
+        }}
+      >
+        {items.map(({ id, Icon }) => (
+          <Link key={id} to={id} className="nav-link">
+            <Icon
+              size={22}
+              color={
+                location.pathname === id
+                  ? "var(--tg-theme-button-color)"
+                  : "var(--tg-theme-text-color)"
+              }
+            />
+          </Link>
+        ))}
+      </nav>
+    </>
   );
 };
