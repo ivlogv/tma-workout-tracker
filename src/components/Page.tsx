@@ -27,8 +27,6 @@ export function Page({
     <div
       style={{
         paddingBottom: showNav ? "72px" : "0",
-        // paddingLeft: "12px",
-        // paddingRight: "12px",
       }}
     >
       {children}

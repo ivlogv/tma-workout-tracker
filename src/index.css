@@ -2,6 +2,8 @@ html, body, #root {
   user-select: none;          /* основное свойство */
   -webkit-user-select: none;  /* Safari */
   -ms-user-select: none;      /* IE/Edge */
+  overflow-y: scroll;       /* чтобы не прыгала верстка */
+  -webkit-overflow-scrolling: touch; /* плавный скролл */
 }
 
 body {
@@ -12,8 +14,9 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+::-webkit-scrollbar {
+  width: 0 !important;      /* скрыть полосу */
+  height: 0 !important;
 }
 
 input, textarea {

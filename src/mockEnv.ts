@@ -68,7 +68,7 @@ if (import.meta.env.DEV) {
           ['user', JSON.stringify({ id: 1, first_name: 'Vladislav' })],
         ]).toString()],
         ['tgWebAppVersion', '8.4'],
-        ['tgWebAppPlatform', 'tdesktop'],
+        ['tgWebAppPlatform', 'ios'],
       ]),
     });
 

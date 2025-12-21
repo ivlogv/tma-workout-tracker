@@ -6,6 +6,7 @@ import { Workout } from "@/types/workout";
 import { WeekCalendar } from "./WeekCalendar";
 import { TodayWorkoutCard } from "./TodayWorkoutCard";
 import { WeeklyProgress } from "./WeeklyProgress";
+import { List } from "@telegram-apps/telegram-ui";
 // import { useInitDataContext } from "@/context/InitDataContext";
 
 export const IndexPage: FC = () => {
@@ -13,42 +14,43 @@ export const IndexPage: FC = () => {
   // const name = user?.first_name ?? user?.username ?? "Friend";
 
   const workouts: Workout[] = [
-  {
-    id: "1",
-    user_id: "user_123",
-    workout_date: new Date().toISOString(),
-    title: "Кардио тренировка",
-    description: "30 минут беговой дорожки и велотренажёр",
-    created_at: new Date().toISOString(),
-    is_completed: true
-  },
-  {
-    id: "2",
-    user_id: "user_123",
-    workout_date: new Date(Date.now() - 86400000).toISOString(), // вчера
-    title: "Силовая тренировка",
-    description: "Жим лёжа, приседания, подтягивания",
-    created_at: new Date(Date.now() - 86400000).toISOString(),
-    is_completed: false
-  },
-  {
-    id: "2",
-    user_id: "user_123",
-    workout_date: new Date(Date.now() - 86400000*3).toISOString(), // вчера
-    title: "Силовая тренировка",
-    description: "Жим лёжа, приседания, подтягивания",
-    created_at: new Date(Date.now() - 86400000).toISOString(),
-    is_completed: true
-  },
-];
-
+    {
+      id: "1",
+      user_id: "user_123",
+      workout_date: new Date().toISOString(),
+      title: "Кардио тренировка",
+      description: "30 минут беговой дорожки и велотренажёр",
+      created_at: new Date().toISOString(),
+      is_completed: true,
+    },
+    {
+      id: "2",
+      user_id: "user_123",
+      workout_date: new Date(Date.now() - 86400000).toISOString(), // вчера
+      title: "Силовая тренировка",
+      description: "Жим лёжа, приседания, подтягивания",
+      created_at: new Date(Date.now() - 86400000).toISOString(),
+      is_completed: false,
+    },
+    {
+      id: "2",
+      user_id: "user_123",
+      workout_date: new Date(Date.now() - 86400000 * 3).toISOString(), // вчера
+      title: "Силовая тренировка",
+      description: "Жим лёжа, приседания, подтягивания",
+      created_at: new Date(Date.now() - 86400000).toISOString(),
+      is_completed: true,
+    },
+  ];
 
   return (
     <Page back={false}>
-      <IndexHeader />
-      <WeekCalendar workouts={workouts} />
-      <TodayWorkoutCard todayWorkout={workouts[0]} />
-      <WeeklyProgress workouts={workouts} />
+      <List>
+        <IndexHeader />
+        <WeekCalendar workouts={workouts} />
+        <TodayWorkoutCard todayWorkout={workouts[0]} />
+        <WeeklyProgress workouts={workouts} />
+      </List>
     </Page>
   );
 };
