@@ -28,6 +28,8 @@ export function Page({
     <div
       style={{
         paddingBottom: showNav ? "72px" : "0",
+        maxWidth: "420px",
+        margin: "auto"
       }}
     >
       {['ios', 'android'].includes(lp?.tgWebAppPlatform) && <div style={{ height: "64px" }} />}

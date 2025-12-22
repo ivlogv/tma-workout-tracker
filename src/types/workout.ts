@@ -7,4 +7,6 @@ export interface Workout {
   description?: string | null;
   created_at: string;
   is_completed: boolean;
+  duration?: string;
+  calories?: string;
 }
