@@ -20,7 +20,7 @@ export const TodayWorkoutCard: FC<TodayWorkoutCardProps> = ({
         {todayWorkout?.title || "—"}
       </Cell>
 
-      <ButtonCell before={<FiPlusCircle  size="24"/>} onClick={() => navigate("/add")}>
+      <ButtonCell before={<FiPlusCircle  size="24"/>} onClick={() => navigate("/workouts/new")}>
         Добавить тренировку
       </ButtonCell>
     </Section>

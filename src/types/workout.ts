@@ -10,3 +10,16 @@ export interface Workout {
   duration?: string;
   calories?: string;
 }
+
+export interface WorkoutTemplate {
+  id: string;
+  title: string;
+  description?: string | null;
+}
+
+export interface WorkoutEvent {
+  id: string;
+  template_id: string;
+  date: string; // ISO
+  is_completed: boolean;
+}
