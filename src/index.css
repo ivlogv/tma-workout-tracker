@@ -8,7 +8,8 @@ body {
   background: var(--tg-theme-secondary-bg-color, white);
   padding: 0;
   margin: 0;
-  overflow: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 body::-webkit-scrollbar {
@@ -16,5 +17,5 @@ body::-webkit-scrollbar {
 }
 
 input, textarea {
-  user-select: text; /* разрешаем выделение только внутри форм */
+  user-select: text;
 }

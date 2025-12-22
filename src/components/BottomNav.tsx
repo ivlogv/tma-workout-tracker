@@ -24,7 +24,7 @@ export const BottomNav: FC = () => {
           width: "100%",
           height: "86px",
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0))",
+            "linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0))",
           zIndex: 999,
           pointerEvents: "none",
         }}
