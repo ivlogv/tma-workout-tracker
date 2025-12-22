@@ -19,7 +19,7 @@ export const StatBox: FC<StatBoxProps> = ({ label, value, delta }) => {
       style={{
         display: "flex",
         flexDirection: "column",
-        padding: "8px 16px",
+        padding: "8px",
         borderRadius: "8px",
         backgroundColor: "var(--tg-theme-secondary-bg-color)",
       }}

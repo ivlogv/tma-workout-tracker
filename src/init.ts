@@ -72,7 +72,7 @@ export async function init(options: {
 
   const platform = retrieveLaunchParams()?.tgWebAppPlatform;
   if (platform === "android" || platform === "ios") {
-    postEvent("web_app_expand");
+    postEvent("web_app_request_fullscreen");
   }
 
   if (miniApp.mount.isAvailable()) {
