@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes, HashRouter } from "react-router-dom";
-import { useLaunchParams } from "@tma.js/sdk-react";
+import { miniApp, useLaunchParams, useSignal } from "@tma.js/sdk-react";
 import { AppRoot } from "@telegram-apps/telegram-ui";
 
 import { routes } from "@/navigation/routes.tsx";
@@ -8,17 +8,17 @@ import { Provider } from "@/components/ui/provider";
 
 export function App() {
   const lp = useLaunchParams();
-  // const isDark = useSignal(miniApp.isDark);
+  const isDark = useSignal(miniApp.isDark);
 
   return (
     <InitDataProvider>
-      <AppRoot
-        // appearance={isDark ? "dark" : "light"}
-        platform={
-          ["macos", "ios"].includes(lp.tgWebAppPlatform) ? "ios" : "base"
-        }
-      >
-        <Provider>
+      <Provider>
+        <AppRoot
+          appearance={isDark ? "dark" : "light"}
+          platform={
+            ["macos", "ios"].includes(lp.tgWebAppPlatform) ? "ios" : "base"
+          }
+        >
           <HashRouter>
             <Routes>
               {routes.map((route) => (
@@ -27,8 +27,8 @@ export function App() {
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </HashRouter>
-        </Provider>
-      </AppRoot>
+        </AppRoot>
+      </Provider>
     </InitDataProvider>
   );
 }
