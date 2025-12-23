@@ -22,8 +22,7 @@ export function WeeklyProgress() {
         bg="sectionBg"
         p={4}
         borderRadius="lg"
-        _hover={{ bg: "hint" }}
-        _active={{ bg: "hint" }}
+        border="none"
       >
         <StatBox label="Объём" value="371 кг" delta="+12%" />
         <StatBox label="Сила" value="86" delta="+4" />

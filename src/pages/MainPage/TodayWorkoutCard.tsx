@@ -18,8 +18,8 @@ export function TodayWorkoutCard({ todayWorkout }: { todayWorkout: any }) {
 
       <Card.Root
         borderRadius="lg"
+        border="none"
         bg="sectionBg"
-        borderColor="bg"
         overflow="hidden"
         borderTop="none"
       >
@@ -29,8 +29,8 @@ export function TodayWorkoutCard({ todayWorkout }: { todayWorkout: any }) {
           borderBottom="1px solid"
           // borderBottomColor="bg"
           borderTopRadius="lg"
-          _hover={{ bg: "headerBg", borderColor: "headerBg" }}
-          _active={{ bg: "headerBg", borderColor: "headerBg" }}
+          // _hover={{ bg: "headerBg", borderColor: "headerBg" }}
+          // _active={{ bg: "headerBg", borderColor: "headerBg" }}
           onClick={() => navigate("/add")}
         >
           <HStack justify="space-between" mx={4} color="hint">

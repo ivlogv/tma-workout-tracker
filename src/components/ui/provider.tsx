@@ -3,17 +3,19 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { ColorModeProvider, type ColorModeProviderProps } from "./color-mode";
 import { system } from "@/components/theme";
+import { miniApp, useSignal,  } from "@tma.js/sdk-react";
 // import { RegisterProvider } from "./RegisterProvider";
 // import { WorkoutProvider } from "./WorkoutProvider";
 
 export function Provider(props: ColorModeProviderProps) {
+  const isDark = useSignal(miniApp.isDark);
   return (
     <ChakraProvider value={system}>
-      <ColorModeProvider {...props}>
+      <ColorModeProvider {...props} forcedTheme={isDark ? "dark" : "light"}>
         {/* <RegisterProvider> */}
-          {/* <WorkoutProvider> */}
-            {/* {props.children} */}
-            {/* </WorkoutProvider> */}
+        {/* <WorkoutProvider> */}
+        {/* {props.children} */}
+        {/* </WorkoutProvider> */}
         {/* </RegisterProvider> */}
       </ColorModeProvider>
     </ChakraProvider>
