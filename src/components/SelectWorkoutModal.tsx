@@ -35,7 +35,8 @@ export const SelectWorkoutModal: FC<SelectWorkoutModalProps> = ({
       open={open}
       onOpenChange={onOpenChange}
       header="Выберите тренировку"
-      style={{ width: "100%", height: "50%" }}
+      style={{ maxWidth: "100%", zIndex: 1000}}
+      snapPoints={["40%", "70%", "100%"]}
     >
       <List>
         {templates.map((t) => (
