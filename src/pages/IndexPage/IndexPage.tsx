@@ -90,14 +90,14 @@ export const IndexPage: FC = () => {
         <TodayWorkoutCard todayWorkout={workouts[0]} />
         <WeeklyProgress workouts={workouts} />
         <RecentWorkouts recentWorkouts={recentWorkouts} />
-
-        <SelectWorkoutModal
-          open={isModalOpen}
-          onOpenChange={setModalOpen}
-          templates={templates}
-          onEventAdded={(event) => setEvents((prev) => [...prev, event])}
-        />
       </List>
+      
+      <SelectWorkoutModal
+        open={isModalOpen}
+        onOpenChange={setModalOpen}
+        templates={templates}
+        onEventAdded={(event) => setEvents((prev) => [...prev, event])}
+      />
     </Page>
   );
 };
