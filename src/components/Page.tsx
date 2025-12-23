@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { backButton, useLaunchParams } from "@tma.js/sdk-react";
-import { type PropsWithChildren, useEffect } from "react";
-import { BottomNav } from "@/components/BottomNav.tsx";
+import { PropsWithChildren, useEffect } from "react";
+import { BottomNav } from "./BottomNav";
+import { Box } from "@chakra-ui/react";
 
 export function Page({
   children,
@@ -14,6 +15,12 @@ export function Page({
   const navigate = useNavigate();
   const lp = useLaunchParams();
 
+  const getMarginX = (platform?: string) => {
+    if (platform === "android") return "12px";
+    if (platform === "ios") return "16px";
+    return "auto";
+  };
+
   useEffect(() => {
     if (back) {
       backButton.show();
@@ -22,19 +29,20 @@ export function Page({
       });
     }
     backButton.hide();
-  }, [back]);
+  }, [back, navigate]);
 
   return (
-    <div
-      style={{
-        paddingBottom: showNav ? "72px" : "0",
-        maxWidth: "420px",
-        margin: "auto"
-      }}
+    <Box
+      pb={showNav ? "72px" : "0"}
+      maxW="420px"
+      mx={getMarginX(lp?.tgWebAppPlatform)}
     >
-      {['ios', 'android'].includes(lp?.tgWebAppPlatform) && <div style={{ height: "64px" }} />}
+      {/* Отступ под системный navbar Telegram на iOS/Android */}
+      {["ios", "android"].includes(lp?.tgWebAppPlatform) && <Box h="64px" />}
+
       {children}
+
       {showNav && <BottomNav />}
-    </div>
+    </Box>
   );
 }

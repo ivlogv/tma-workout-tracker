@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "@/components/Link/Link.tsx";
 import { FiHome, FiClock, FiBarChart2, FiUser } from "react-icons/fi";
+import { Box, Flex, Icon } from "@chakra-ui/react";
 
 export const BottomNav: FC = () => {
   const location = useLocation();
@@ -15,52 +16,50 @@ export const BottomNav: FC = () => {
 
   return (
     <>
-      <div
-        style={{
-          position: "fixed",
-          bottom: "-1px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "100%",
-          height: "86px",
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0))",
-          zIndex: 999,
-          pointerEvents: "none",
-        }}
+      {/* Градиентный фон под навбар */}
+      <Box
+        position="fixed"
+        bottom="-1px"
+        left="50%"
+        transform="translateX(-50%)"
+        w="100%"
+        h="86px"
+        bgGradient="to-t"
+        gradientFrom="rgba(0,0,0,0.5)"
+        gradientTo="rgba(0,0,0,0)"
+        zIndex={999}
+        pointerEvents="none"
       />
 
-      <nav
-        style={{
-          position: "fixed",
-          bottom: "8px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "calc(100% - 36px)",
-          maxWidth: "420px",
-          padding: "8px 0",
-          backgroundColor: "var(--tgui--section_bg_color)",
-          borderRadius: "16px",
-          border: "1px solid rgba(255,255,255, 0.15)",
-          zIndex: 1000,
-        }}
+      {/* Сам навбар */}
+      <Flex
+        as="nav"
+        position="fixed"
+        bottom="8px"
+        left="50%"
+        transform="translateX(-50%)"
+        justify="space-around"
+        align="center"
+        w="calc(100% - 36px)"
+        maxW="420px"
+        py={2}
+        bg="sectionBg" // цвет из твоей темы Chakra
+        borderRadius="2xl"
+        border="1px solid rgba(255,255,255,0.15)"
+        zIndex={1000}
       >
-        {items.map(({ id, Icon }) => (
-          <Link key={id} to={id} className="nav-link">
+        {items.map(({ id, Icon: IconComp }) => (
+          <Link key={id} to={id}>
             <Icon
-              size={22}
-              color={
-                location.pathname === id
-                  ? "var(--tg-theme-button-color)"
-                  : "var(--tg-theme-text-color)"
-              }
-            />
+              boxSize={6}
+              m={1}
+              color={location.pathname === id ? "accentText" : "hint"}
+            >
+              {<IconComp />}
+            </Icon>
           </Link>
         ))}
-      </nav>
+      </Flex>
     </>
   );
 };

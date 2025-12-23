@@ -1,10 +1,8 @@
 import type { ComponentType, JSX } from 'react';
 
-import { IndexPage } from '@/pages/IndexPage/IndexPage';
-import { InitDataPage } from '@/pages/InitDataPage.tsx';
-import { LaunchParamsPage } from '@/pages/LaunchParamsPage.tsx';
-import { ThemeParamsPage } from '@/pages/ThemeParamsPage.tsx';
+// import { IndexPage } from '@/pages/IndexPage/IndexPage';
 import { AddWorkoutPage } from '@/pages/AddWorkoutPage';
+import { MainPage } from '@/pages/MainPage/MainPage';
 
 interface Route {
   path: string;
@@ -14,9 +12,6 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/', Component: IndexPage },
-  { path: '/init-data', Component: InitDataPage, title: 'Init Data' },
-  { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
-  { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },
+  { path: '/', Component: MainPage },
   {path: '/workouts/new', Component: AddWorkoutPage, title: 'Add Workout'}
 ];

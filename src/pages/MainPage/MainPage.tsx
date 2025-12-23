@@ -1,27 +1,21 @@
-import type { FC } from "react";
-import { useEffect, useState } from "react";
-import { List } from "@telegram-apps/telegram-ui";
+import { FC, useEffect, useState } from "react";
 import { mainButton } from "@tma.js/sdk-react";
-
-import { Page } from "@/components/Page.tsx";
-import { IndexHeader } from "./IndexHeader";
+import { Box } from "@chakra-ui/react";
+// import { useWorkout } from "@/components/ui/WorkoutProvider";
+// import { useRegister } from "@/components/ui/RegisterProvider";
+// import { MainHeader } from "./MainHeader";
 import { WeekCalendar } from "./WeekCalendar";
 import { TodayWorkoutCard } from "./TodayWorkoutCard";
 import { WeeklyProgress } from "./WeeklyProgress";
 import { RecentWorkouts } from "./RecentWorkouts";
-
 import { loadTemplates, loadEvents } from "@/storage/workouts";
 import { WorkoutTemplate, WorkoutEvent } from "@/types/workout";
-import { SelectWorkoutModal } from "@/components/SelectWorkoutModal";
-// import { useInitDataContext } from "@/context/InitDataContext";
+import { Page } from "@/components/Page";
 
-export const IndexPage: FC = () => {
-  // const { user } = useInitDataContext();
-  // const name = user?.first_name ?? user?.username ?? "Friend";
-
+export const MainPage: FC = () => {
   const [templates, setTemplates] = useState<WorkoutTemplate[]>([]);
   const [events, setEvents] = useState<WorkoutEvent[]>([]);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [isModalOpen, setModalOpen] = useState(false);
 
   // Загружаем данные при входе
   useEffect(() => {
@@ -29,7 +23,7 @@ export const IndexPage: FC = () => {
     setEvents(loadEvents());
   }, []);
 
-  // Преобразуем events → workouts для календаря и прогресса
+  // Преобразуем events → workouts
   const workouts = events.map((e) => ({
     id: e.id,
     user_id: "local",
@@ -39,7 +33,6 @@ export const IndexPage: FC = () => {
     created_at: e.date,
     is_completed: e.is_completed,
   }));
-
   const recentWorkouts = [...workouts]
     .sort(
       (a, b) =>
@@ -47,9 +40,9 @@ export const IndexPage: FC = () => {
     )
     .slice(0, 5);
 
+  // Логика MainButton
   useEffect(() => {
     if (!mainButton) return;
-
     const hasTemplates = templates.length > 0;
     const hasCompletedToday = events.some(
       (e) =>
@@ -58,7 +51,6 @@ export const IndexPage: FC = () => {
     );
 
     let handler: () => void;
-
     if (!hasTemplates) {
       mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
       handler = () => {
@@ -66,7 +58,7 @@ export const IndexPage: FC = () => {
       };
     } else if (!hasCompletedToday) {
       mainButton.setParams({ text: "Отметить тренировку", isVisible: true });
-      handler = () => setModalOpen(true);
+      handler = () => alert("Отметить тренировку");
     } else {
       mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
       handler = () => {
@@ -76,29 +68,28 @@ export const IndexPage: FC = () => {
 
     mainButton.onClick(handler);
 
-    // 👉 снимаем обработчик при изменении deps или размонтировании
     return () => {
       mainButton.offClick(handler);
     };
   }, [templates, events]);
 
   return (
-    <>
-      <Page back={false}>
-        <List>
-          <IndexHeader />
-          <WeekCalendar workouts={workouts} />
-          <TodayWorkoutCard todayWorkout={workouts[0]} />
-          <WeeklyProgress workouts={workouts} />
-          <RecentWorkouts recentWorkouts={recentWorkouts} />
-        </List>
-      </Page>
-      <SelectWorkoutModal
-        open={isModalOpen}
-        onOpenChange={setModalOpen}
-        templates={templates}
-        onEventAdded={(event) => setEvents((prev) => [...prev, event])}
-      />
-    </>
+    <Page back={false} showNav={true}>
+      <WeekCalendar workouts={workouts} />
+      <TodayWorkoutCard todayWorkout={workouts[0]} />
+      <WeeklyProgress />
+      <RecentWorkouts recentWorkouts={recentWorkouts} />
+    </Page>
   );
 };
+{
+  /* <Box p={2} pb="80px" bg="bg" color="text" userSelect="none"></Box> */
+}
+{
+  /* <MainHeader
+        avatarColor={avatarColor}
+        avatarFallback={avatarFallback}
+        avatarImage={avatarImage}
+      /> */
+}
+// </Box>

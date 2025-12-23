@@ -1,5 +1,6 @@
 // Include Telegram UI styles first to allow our code override the package CSS.
 import '@telegram-apps/telegram-ui/dist/styles.css';
+import { Provider } from "@/components/ui/provider"
 
 import ReactDOM from 'react-dom/client';
 import { StrictMode } from 'react';
@@ -32,7 +33,9 @@ try {
     .then(() => {
       root.render(
         <StrictMode>
-          <Root/>
+          <Provider>
+            <Root/>
+          </Provider>
         </StrictMode>,
       );
     });
