@@ -73,7 +73,7 @@ const codeRecipe = defineRecipe({
 
 const boxRecipe = defineRecipe({
   base: {
-    // bg: "secondaryBg",
+    bg: "secondaryBg",
     color: "text",
     borderColor: "sectionSeparator",
     borderWidth: "1px",
