@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { Page } from "@/components/Page";
-import { Section, Cell, Input, List } from "@telegram-apps/telegram-ui";
+import { Section, Input, List } from "@telegram-apps/telegram-ui";
 import { addTemplate } from "@/storage/workouts";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
