@@ -49,27 +49,37 @@ export const IndexPage: FC = () => {
 
   useEffect(() => {
     if (!mainButton) return;
+
     const hasTemplates = templates.length > 0;
     const hasCompletedToday = events.some(
       (e) =>
         new Date(e.date).toDateString() === new Date().toDateString() &&
         e.is_completed
     );
-    mainButton.offClick(() => {});
+
+    let handler: () => void;
+
     if (!hasTemplates) {
       mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
-      mainButton.onClick(() => {
+      handler = () => {
         window.location.hash = "#/workouts/new";
-      });
+      };
     } else if (!hasCompletedToday) {
       mainButton.setParams({ text: "Отметить тренировку", isVisible: true });
-      mainButton.onClick(() => setModalOpen(true));
+      handler = () => setModalOpen(true);
     } else {
       mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
-      mainButton.onClick(() => {
+      handler = () => {
         window.location.hash = "#/workouts/new";
-      });
+      };
     }
+
+    mainButton.onClick(handler);
+
+    // 👉 снимаем обработчик при изменении deps или размонтировании
+    return () => {
+      mainButton.offClick(handler);
+    };
   }, [templates, events]);
 
   return (

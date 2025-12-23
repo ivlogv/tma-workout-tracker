@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Modal, Cell } from "@telegram-apps/telegram-ui";
+import { Modal, Cell, List } from "@telegram-apps/telegram-ui";
 import { WorkoutTemplate, WorkoutEvent } from "@/types/workout";
 import { addEvent } from "@/storage/workouts";
 import { nanoid } from "nanoid";
@@ -32,11 +32,13 @@ export const SelectWorkoutModal: FC<SelectWorkoutModalProps> = ({
 
   return (
     <Modal open={open} onOpenChange={onOpenChange} header="Выберите тренировку">
-      {templates.map((t) => (
-        <Cell key={t.id} onClick={() => handleSelect(t)}>
-          {t.title}
-        </Cell>
-      ))}
+      <List>
+        {templates.map((t) => (
+          <Cell key={t.id} onClick={() => handleSelect(t)}>
+            {t.title}
+          </Cell>
+        ))}
+      </List>
     </Modal>
   );
 };

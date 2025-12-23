@@ -14,10 +14,6 @@ export const AddWorkoutPage: FC = () => {
 
   // Управление MainButton
   useEffect(() => {
-    // if (!window.Telegram?.WebApp) return;
-
-    // const tg = window.Telegram.WebApp;
-
     mainButton.setParams({
       text: "Добавить",
       isVisible: true,
