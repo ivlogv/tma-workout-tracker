@@ -49,7 +49,8 @@ export const AddWorkoutPage: FC = () => {
               status="focused"
               onChange={(e) => setTitle(e.target.value)}
             />
-
+        </Section>
+        <Section header="Описание">
             <Input
               placeholder="Описание (необязательно)"
               value={description}

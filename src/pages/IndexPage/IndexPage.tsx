@@ -83,21 +83,22 @@ export const IndexPage: FC = () => {
   }, [templates, events]);
 
   return (
-    <Page back={false}>
-      <List>
-        <IndexHeader />
-        <WeekCalendar workouts={workouts} />
-        <TodayWorkoutCard todayWorkout={workouts[0]} />
-        <WeeklyProgress workouts={workouts} />
-        <RecentWorkouts recentWorkouts={recentWorkouts} />
-      </List>
-      
+    <>
+      <Page back={false}>
+        <List>
+          <IndexHeader />
+          <WeekCalendar workouts={workouts} />
+          <TodayWorkoutCard todayWorkout={workouts[0]} />
+          <WeeklyProgress workouts={workouts} />
+          <RecentWorkouts recentWorkouts={recentWorkouts} />
+        </List>
+      </Page>
       <SelectWorkoutModal
         open={isModalOpen}
         onOpenChange={setModalOpen}
         templates={templates}
         onEventAdded={(event) => setEvents((prev) => [...prev, event])}
       />
-    </Page>
+    </>
   );
 };
