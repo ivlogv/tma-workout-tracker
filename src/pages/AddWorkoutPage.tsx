@@ -47,21 +47,18 @@ export const AddWorkoutPage: FC = () => {
     <Page back>
       <List>
         <Section header="Новая тренировка">
-          <Cell>
             <Input
               placeholder="Название тренировки"
               value={title}
+              status="focused"
               onChange={(e) => setTitle(e.target.value)}
             />
-          </Cell>
 
-          <Cell>
             <Input
               placeholder="Описание (необязательно)"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-          </Cell>
         </Section>
       </List>
     </Page>

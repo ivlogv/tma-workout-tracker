@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { List } from "@telegram-apps/telegram-ui";
+import { mainButton } from "@tma.js/sdk-react";
 
 import { Page } from "@/components/Page.tsx";
 import { IndexHeader } from "./IndexHeader";
@@ -11,6 +12,7 @@ import { RecentWorkouts } from "./RecentWorkouts";
 
 import { loadTemplates, loadEvents } from "@/storage/workouts";
 import { WorkoutTemplate, WorkoutEvent } from "@/types/workout";
+import { SelectWorkoutModal } from "@/components/SelectWorkoutModal";
 // import { useInitDataContext } from "@/context/InitDataContext";
 
 export const IndexPage: FC = () => {
@@ -19,6 +21,7 @@ export const IndexPage: FC = () => {
 
   const [templates, setTemplates] = useState<WorkoutTemplate[]>([]);
   const [events, setEvents] = useState<WorkoutEvent[]>([]);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   // Загружаем данные при входе
   useEffect(() => {
@@ -44,6 +47,31 @@ export const IndexPage: FC = () => {
     )
     .slice(0, 5);
 
+  useEffect(() => {
+    if (!mainButton) return;
+    const hasTemplates = templates.length > 0;
+    const hasCompletedToday = events.some(
+      (e) =>
+        new Date(e.date).toDateString() === new Date().toDateString() &&
+        e.is_completed
+    );
+    mainButton.offClick(() => {});
+    if (!hasTemplates) {
+      mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
+      mainButton.onClick(() => {
+        window.location.hash = "#/workouts/new";
+      });
+    } else if (!hasCompletedToday) {
+      mainButton.setParams({ text: "Отметить тренировку", isVisible: true });
+      mainButton.onClick(() => setModalOpen(true));
+    } else {
+      mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
+      mainButton.onClick(() => {
+        window.location.hash = "#/workouts/new";
+      });
+    }
+  }, [templates, events]);
+
   return (
     <Page back={false}>
       <List>
@@ -52,6 +80,13 @@ export const IndexPage: FC = () => {
         <TodayWorkoutCard todayWorkout={workouts[0]} />
         <WeeklyProgress workouts={workouts} />
         <RecentWorkouts recentWorkouts={recentWorkouts} />
+
+        <SelectWorkoutModal
+          open={isModalOpen}
+          onOpenChange={setModalOpen}
+          templates={templates}
+          onEventAdded={(event) => setEvents((prev) => [...prev, event])}
+        />
       </List>
     </Page>
   );
