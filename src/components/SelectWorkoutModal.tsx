@@ -31,7 +31,12 @@ export const SelectWorkoutModal: FC<SelectWorkoutModalProps> = ({
   };
 
   return (
-    <Modal open={open} onOpenChange={onOpenChange} header="Выберите тренировку">
+    <Modal
+      open={open}
+      onOpenChange={onOpenChange}
+      header="Выберите тренировку"
+      style={{ width: "100%", height: "50%" }}
+    >
       <List>
         {templates.map((t) => (
           <Cell key={t.id} onClick={() => handleSelect(t)}>
