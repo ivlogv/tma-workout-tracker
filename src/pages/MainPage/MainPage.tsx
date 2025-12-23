@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { mainButton } from "@tma.js/sdk-react";
-import { Box } from "@chakra-ui/react";
+// import { Box } from "@chakra-ui/react";
 // import { useWorkout } from "@/components/ui/WorkoutProvider";
 // import { useRegister } from "@/components/ui/RegisterProvider";
 // import { MainHeader } from "./MainHeader";
