@@ -19,8 +19,8 @@ export function WeeklyProgress() {
       <SimpleGrid
         columns={2}
         gap={2}
-        bg="sectionBg"
-        p={4}
+        bg="secondaryBg"
+        p={0}
         borderRadius="lg"
         border="none"
       >
