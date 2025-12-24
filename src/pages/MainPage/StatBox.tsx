@@ -14,7 +14,7 @@ export function StatBox({
   const isPositive = numericDelta > 0;
 
   return (
-    <Card.Root p={2} px={4} borderRadius="lg" bg="secondaryBg" border="none">
+    <Card.Root p={2} px={4} borderRadius="lg" bg="sectionBg" border="none">
       <Text fontSize="sm" color="hint" mb={1}>
         {label}
       </Text>
