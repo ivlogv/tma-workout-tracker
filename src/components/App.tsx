@@ -12,13 +12,13 @@ export function App() {
 
   return (
     <InitDataProvider>
-      <Provider>
-        <AppRoot
-          appearance={isDark ? "dark" : "light"}
-          platform={
-            ["macos", "ios"].includes(lp.tgWebAppPlatform) ? "ios" : "base"
-          }
-        >
+      <AppRoot
+        appearance={isDark ? "dark" : "light"}
+        platform={
+          ["macos", "ios"].includes(lp.tgWebAppPlatform) ? "ios" : "base"
+        }
+      >
+        <Provider>
           <HashRouter>
             <Routes>
               {routes.map((route) => (
@@ -27,8 +27,8 @@ export function App() {
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </HashRouter>
-        </AppRoot>
-      </Provider>
+        </Provider>
+      </AppRoot>
     </InitDataProvider>
   );
 }
