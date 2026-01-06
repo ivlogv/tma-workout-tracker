@@ -9,9 +9,9 @@ export const BottomNav: FC = () => {
 
   const items = [
     { id: "/", Icon: FiHome },
-    { id: "/init-data", Icon: FiClock },
-    { id: "/launch-params", Icon: FiBarChart2 },
-    { id: "/theme-params", Icon: FiUser },
+    { id: "/history", Icon: FiClock },
+    { id: "/theme-params", Icon: FiBarChart2 },
+    { id: "/settings", Icon: FiUser },
   ];
 
   return (

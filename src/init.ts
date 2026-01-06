@@ -14,6 +14,8 @@ import {
   postEvent,
 } from "@tma.js/sdk-react";
 
+
+
 /**
  * Initializes the application and configures its dependencies.
  */

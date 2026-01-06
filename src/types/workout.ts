@@ -22,4 +22,14 @@ export interface WorkoutEvent {
   template_id: string;
   date: string; // ISO
   is_completed: boolean;
+  duration?: string;
+  exercises: WorkoutExercise[];
+}
+
+export interface WorkoutExercise {
+  id: string;
+  template_id: string;
+  name: string;
+  order: number;
+  is_completed: boolean;
 }

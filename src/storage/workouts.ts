@@ -1,7 +1,8 @@
-import { WorkoutTemplate, WorkoutEvent } from "@/types/workout";
+import { WorkoutTemplate, WorkoutEvent, WorkoutExercise } from "@/types/workout";
 
 const TEMPLATES_KEY = "workout_templates";
 const EVENTS_KEY = "workout_events";
+const EXERCISES_KEY = "workout_exercises";
 
 // ---------- Templates ----------
 export function loadTemplates(): WorkoutTemplate[] {
@@ -39,4 +40,23 @@ export function addEvent(event: WorkoutEvent) {
   const events = loadEvents();
   events.push(event);
   saveEvents(events);
+}
+
+// ---------- Exercises ----------
+export function loadExercises(): WorkoutExercise[] {
+  try {
+    return JSON.parse(localStorage.getItem(EXERCISES_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+export function saveExercises(exercises: WorkoutExercise[]) {
+  localStorage.setItem(EXERCISES_KEY, JSON.stringify(exercises));
+}
+
+export function addExercise(exercise: WorkoutExercise) {
+  const exercises = loadExercises();
+  exercises.push(exercise);
+  saveExercises(exercises);
 }

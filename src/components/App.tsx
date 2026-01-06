@@ -5,10 +5,19 @@ import { AppRoot } from "@telegram-apps/telegram-ui";
 import { routes } from "@/navigation/routes.tsx";
 import { InitDataProvider } from "@/context/InitDataContext";
 import { Provider } from "@/components/ui/provider";
+// import { useEffect } from "react";
+// import { loadMockData } from "@/hooks/mock";
+
 
 export function App() {
   const lp = useLaunchParams();
   const isDark = useSignal(miniApp.isDark);
+
+  // useEffect(() => {
+  //   if (!localStorage.getItem("workout_templates")) {
+  //     loadMockData();
+  //   }
+  // }, []);
 
   return (
     <InitDataProvider>
@@ -24,7 +33,7 @@ export function App() {
               {routes.map((route) => (
                 <Route key={route.path} {...route} />
               ))}
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
           </HashRouter>
         </Provider>
