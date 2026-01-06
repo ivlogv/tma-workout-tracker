@@ -10,7 +10,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { hapticFeedback } from "@tma.js/sdk";
+import { hapticFeedback } from "@tma.js/sdk-react";
 
 import { Page } from "@/components/Page";
 

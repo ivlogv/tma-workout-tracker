@@ -8,7 +8,7 @@ import {
   Text,
   Button,
   IconButton,
-  Separator,
+//   Separator,
 } from "@chakra-ui/react";
 
 import { Page } from "@/components/Page";

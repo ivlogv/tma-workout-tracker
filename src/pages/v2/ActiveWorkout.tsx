@@ -1,5 +1,5 @@
-import { FC, useEffect } from "react";
-import { hapticFeedback } from "@tma.js/sdk";
+import { FC } from "react";
+import { hapticFeedback } from "@tma.js/sdk-react";
 import {
   Box,
   Flex,
