@@ -93,6 +93,4 @@ export async function init(options: {
     mainButton.mount();
     console.log("Main button mounted");
   }
-  // mainButton.setText("Start Workout");
-  // mainButton.show();
 }

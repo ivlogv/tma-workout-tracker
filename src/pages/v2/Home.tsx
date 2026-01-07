@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useMemo } from "react";
+import { FC, useEffect, useState, useMemo, useCallback } from "react";
 import { LuSettings as SettingsIcon } from "react-icons/lu";
 import { Box, Flex, Heading, IconButton, Text, Button } from "@chakra-ui/react";
 
@@ -44,9 +44,10 @@ export const Home: FC = () => {
       };
     } else if (!hasCompletedToday) {
       mainButton.setParams({ text: "Старт", isVisible: true });
-      handler = () => alert("Отметить тренировку");
+      // handler = () => alert("Отметить тренировку");
+      handler = handleStart;
     } else {
-      mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
+      mainButton.setParams({ text: "Добавить 2", isVisible: true });
       handler = () => {
         window.location.hash = "#/workouts/new";
       };
@@ -60,10 +61,10 @@ export const Home: FC = () => {
   }, [templates, events]);
 
   // Handle workout start
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     startWorkout("t1"); // или выбранный шаблон
     navigate("/workout/start");
-  };
+  }, [navigate, startWorkout]);
 
   // Convert events → workouts
   const workouts = useMemo(
@@ -114,7 +115,7 @@ export const Home: FC = () => {
   }, [events]);
 
   return (
-    <Page showNav>
+    <Page showNav back={false}>
       <Flex direction="column">
         {/* Header */}
         <Flex align="center" justify="space-between" mb={8}>

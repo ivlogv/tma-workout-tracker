@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { backButton, useLaunchParams } from "@tma.js/sdk-react";
+import { backButton, miniApp, useLaunchParams } from "@tma.js/sdk-react";
 import { PropsWithChildren, useEffect } from "react";
 // import { BottomNav } from "./BottomNav";
 import { Box } from "@chakra-ui/react";
@@ -28,15 +28,33 @@ export function Page({
     return "auto";
   };
 
+  const navItems = ["/history", "/theme-params", "/settings"];
   useEffect(() => {
+    // if (!backButton.isMounted) return;
+    const path = location.pathname;
+
     if (back) {
-      backButton.show();
-      return backButton.onClick(() => {
-        navigate(-1);
-      });
+      // backButton.show();
+      // return backButton.onClick(() => {
+      //   navigate(-1);
+      // });
+
+      if (path === "/") {
+        backButton.show();
+        const handler = () => miniApp.close();
+        backButton.onClick(handler);
+        return () => backButton.offClick(handler);
+      }
+
+      if (navItems.includes(path)) {
+        backButton.show();
+        const handler = () => navigate("/");
+        backButton.onClick(handler);
+        return () => backButton.offClick(handler);
+      }
     }
     backButton.hide();
-  }, [back, navigate]);
+  }, [location.pathname, back, navigate]);
 
   return (
     <>
@@ -49,7 +67,6 @@ export function Page({
           ease: [0.22, 0.61, 0.36, 1],
         }}
         style={{ height: "100%", paddingBottom: showNav ? "72px" : "0" }}
-        
       >
         <Box
           pb={showNav ? "72px" : "0"}
@@ -58,7 +75,7 @@ export function Page({
         >
           {/* Отступ под системный navbar Telegram на iOS/Android */}
           {["ios", "android"].includes(lp?.tgWebAppPlatform) && (
-            <Box h="80px" />
+            <Box h="84px" />
           )}
 
           {children}
