@@ -28,7 +28,8 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 2000,
     target: 'esnext',
-    minify: 'terser'
+    minify: 'terser',
+    rollupOptions: { external: [/^src\/old\//], },
   },
   publicDir: './public',
   server: {
