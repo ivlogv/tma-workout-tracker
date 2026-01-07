@@ -7,17 +7,14 @@ import { InitDataProvider } from "@/context/InitDataContext";
 import { Provider } from "@/components/ui/provider";
 // import { useEffect } from "react";
 // import { loadMockData } from "@/hooks/mock";
-
+import { useUIStore } from "@/hooks/useUIStore";
+import { BottomNav } from "./BottomNav";
+import { AnimatePresence } from "framer-motion";
 
 export function App() {
   const lp = useLaunchParams();
   const isDark = useSignal(miniApp.isDark);
-
-  // useEffect(() => {
-  //   if (!localStorage.getItem("workout_templates")) {
-  //     loadMockData();
-  //   }
-  // }, []);
+  const showNav = useUIStore((s) => s.showNav);
 
   return (
     <InitDataProvider>
@@ -33,8 +30,13 @@ export function App() {
               {routes.map((route) => (
                 <Route key={route.path} {...route} />
               ))}
-              <Route path="*" element={<Navigate to="/home" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
+
+            {/* Глобальный навбар */}
+            <AnimatePresence mode="wait">
+              {showNav && <BottomNav key="bottom-nav" />}
+            </AnimatePresence>
           </HashRouter>
         </Provider>
       </AppRoot>
