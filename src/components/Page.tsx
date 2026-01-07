@@ -48,7 +48,8 @@ export function Page({
           duration: 0.25,
           ease: [0.22, 0.61, 0.36, 1],
         }}
-        style={{ height: "100%" }}
+        style={{ height: "100%", paddingBottom: showNav ? "72px" : "0" }}
+        
       >
         <Box
           pb={showNav ? "72px" : "0"}
@@ -57,7 +58,7 @@ export function Page({
         >
           {/* Отступ под системный navbar Telegram на iOS/Android */}
           {["ios", "android"].includes(lp?.tgWebAppPlatform) && (
-            <Box h="72px" />
+            <Box h="80px" />
           )}
 
           {children}

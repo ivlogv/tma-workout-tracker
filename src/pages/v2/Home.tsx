@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Page } from "@/components/Page";
 // import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { useWorkoutStore } from "@/storage/workoutStore";
+import { mainButton } from "@tma.js/sdk-react";
 
 export const Home: FC = () => {
   const [templates, setTemplates] = useState<WorkoutTemplate[]>([]);
@@ -24,6 +25,39 @@ export const Home: FC = () => {
     setTemplates(loadTemplates());
     setEvents(loadEvents());
   }, []);
+
+  // Логика MainButton
+  useEffect(() => {
+    if (!mainButton) return;
+    const hasTemplates = templates.length > 0;
+    const hasCompletedToday = events.some(
+      (e) =>
+        new Date(e.date).toDateString() === new Date().toDateString() &&
+        e.is_completed
+    );
+
+    let handler: () => void;
+    if (!hasTemplates) {
+      mainButton.setParams({ text: "Добавить", isVisible: true });
+      handler = () => {
+        window.location.hash = "#/workouts/start";
+      };
+    } else if (!hasCompletedToday) {
+      mainButton.setParams({ text: "Старт", isVisible: true });
+      handler = () => alert("Отметить тренировку");
+    } else {
+      mainButton.setParams({ text: "Добавить тренировку", isVisible: true });
+      handler = () => {
+        window.location.hash = "#/workouts/new";
+      };
+    }
+
+    mainButton.onClick(handler);
+
+    return () => {
+      mainButton.offClick(handler);
+    };
+  }, [templates, events]);
 
   // Handle workout start
   const handleStart = () => {
