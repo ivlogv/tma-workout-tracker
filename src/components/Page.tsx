@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { backButton, miniApp, useLaunchParams } from "@tma.js/sdk-react";
+import { backButton, useLaunchParams } from "@tma.js/sdk-react";
 import { PropsWithChildren, useEffect } from "react";
 // import { BottomNav } from "./BottomNav";
 import { Box } from "@chakra-ui/react";
@@ -28,10 +28,10 @@ export function Page({
     return "auto";
   };
 
-  const navItems = ["/history", "/theme-params", "/settings"];
+  const navItems = ["#/history", "#/theme-params", "#/settings"];
   useEffect(() => {
     // if (!backButton.isMounted) return;
-    const path = location.pathname;
+    const path = location.hash;
 
     if (back) {
       // backButton.show();
@@ -39,19 +39,23 @@ export function Page({
       //   navigate(-1);
       // });
 
-      if (path === "/") {
-        backButton.show();
-        const handler = () => miniApp.close();
-        backButton.onClick(handler);
-        return () => backButton.offClick(handler);
-      }
-
+      // if (path === "/") {
+      //   backButton.show();
+      //   const handler = () => miniApp.close();
+      //   backButton.onClick(handler);
+      //   return () => backButton.offClick(handler);
+      // }
+      let handler: () => void;
       if (navItems.includes(path)) {
         backButton.show();
-        const handler = () => navigate("/");
-        backButton.onClick(handler);
-        return () => backButton.offClick(handler);
+        handler = () => (window.location.hash = "#/");
+        
+      } else {
+        backButton.show();
+        handler = () => navigate(-1);
       }
+      backButton.onClick(handler);
+      return () => backButton.offClick(handler);
     }
     backButton.hide();
   }, [location.pathname, back, navigate]);
