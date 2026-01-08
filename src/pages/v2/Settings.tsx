@@ -5,6 +5,7 @@ import {
   useLaunchParams,
   useSignal,
   popup,
+  mainButton
 } from "@tma.js/sdk-react";
 import { LuChevronLeft } from "react-icons/lu";
 import {
@@ -43,6 +44,8 @@ export const Settings: FC = () => {
     console.log("templates", templates);
     console.log("events", events);
     console.log("--------------");
+
+    mainButton.setParams({ isVisible: false });
   }, []);
 
   const userName = initDataState?.user?.first_name || "User";
