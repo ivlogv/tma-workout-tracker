@@ -58,7 +58,7 @@ export const WorkoutDetails: FC = () => {
 
   return (
     <Page back>
-      <Flex direction="column" minH="100%" color="text">
+      <Flex direction="column" minH="100%">
         {/* Header */}
         <Flex align="center" gap={2} mb={8}>
           {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (

@@ -4,6 +4,7 @@ import {
   initData,
   useLaunchParams,
   useSignal,
+  popup,
 } from "@tma.js/sdk-react";
 import { LuChevronLeft } from "react-icons/lu";
 import {
@@ -46,11 +47,16 @@ export const Settings: FC = () => {
 
   const userName = initDataState?.user?.first_name || "User";
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (hapticFeedback.isSupported()) {
       hapticFeedback.notificationOccurred("warning");
     }
-    setShowConfirm(true);
+    // setShowConfirm(true);
+    await popup.show({
+      title: "Hello!",
+      message: "Here is a test message.",
+      buttons: [{ id: "my-id", type: "default", text: "Default text" }],
+    });
   };
 
   const confirmReset = () => {
