@@ -23,7 +23,7 @@ export const ActiveWorkout: FC = () => {
 
   if (!activeEvent) {
     return (
-      <Page back showNav={false}>
+      <Page back showNav>
         <Flex direction="column" minH="100%" color="text">
           <Flex align="center" gap={2} mb={8}>
             {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (

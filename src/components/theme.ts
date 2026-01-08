@@ -133,6 +133,9 @@ const config = defineConfig({
     },
     semanticTokens: {
       colors: {
+        accent: {
+          500: { value: "{colors.telegramAccentText}" },
+        },
         bg: { value: "{colors.telegramBg}" },
         bgAlpha: { value: "{colors.telegramBgAlpha}" },
         text: { value: "{colors.telegramText}" },
@@ -163,7 +166,7 @@ const config = defineConfig({
           _light: { value: "drop-shadow(0 -4px 12px rgba(0,0,0,0.15))" },
           _dark: { value: "drop-shadow(0 -6px 16px rgba(0,0,0,0.45))" },
         },
-      }
+      },
     },
     recipes: {
       button: buttonRecipe,

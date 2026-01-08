@@ -1,6 +1,15 @@
 import { FC, useEffect, useState, useMemo, useCallback } from "react";
 import { LuSettings as SettingsIcon } from "react-icons/lu";
-import { Box, Flex, Heading, IconButton, Text, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Text,
+  Button,
+  HStack,
+} from "@chakra-ui/react";
+import { Status } from "@/components/ui/status";
 
 import { loadTemplates, loadEvents } from "@/storage/workouts";
 import { WorkoutTemplate, WorkoutEvent } from "@/types/workout";
@@ -19,6 +28,19 @@ export const Home: FC = () => {
   const onOpenSettings = () => navigate("/settings");
   //const onStartWorkout = () => navigate("/workout/start");
   const onViewHistory = () => navigate("/history");
+
+  const todayEvent = useMemo(() => {
+    const today = new Date().toDateString();
+    return events.find((e) => new Date(e.date).toDateString() === today);
+  }, [events, templates]);
+
+  const lastWorkout = useMemo(() => {
+    return [...events]
+      .filter((e) => e.is_completed)
+      .sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      )[0];
+  }, [events]);
 
   // Load data
   useEffect(() => {
@@ -114,6 +136,22 @@ export const Home: FC = () => {
     ).length;
   }, [events]);
 
+  const weekProgress = useMemo(() => {
+    const now = new Date();
+    const start = new Date(now);
+    start.setDate(now.getDate() - now.getDay());
+    const days = Array.from({ length: 7 }).map((_, i) => {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      const completed = events.some(
+        (e) =>
+          e.is_completed && new Date(e.date).toDateString() === d.toDateString()
+      );
+      return { day: d, completed };
+    });
+    return days;
+  }, [events]);
+
   return (
     <Page showNav back={false}>
       <Flex direction="column">
@@ -133,8 +171,28 @@ export const Home: FC = () => {
           </IconButton>
         </Flex>
 
+        {/* Week Progress */}
+        <Box bg="sectionBg" borderRadius="xl" p={4} mb={2}>
+          <Flex justify="space-between">
+            {weekProgress.map((d, i) => (
+              <Box key={i} textAlign="center">
+                <Text fontSize="xs" color="hint">
+                  {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"][i]}
+                </Text>
+                <Text fontSize="xl">
+                  {d.completed ? (
+                    <Status size="lg" colorPalette="cyan" />
+                  ) : (
+                    <Status size="lg" colorPalette="gray"/>
+                  )}
+                </Text>
+              </Box>
+            ))}
+          </Flex>
+        </Box>
+
         {/* Stats */}
-        <Box bg="sectionBg" borderRadius="xl" p={4} mb={6}>
+        <Box bg="sectionBg" borderRadius="xl" p={4} mb={2}>
           <Flex justify="space-around" align="center">
             <Box textAlign="center">
               <Text fontSize="3xl" mb={1}>
@@ -153,6 +211,53 @@ export const Home: FC = () => {
             </Box>
           </Flex>
         </Box>
+
+        {/* Today's Workout */}
+        <Box bg="sectionBg" borderRadius="xl" p={4} mb={2}>
+          {todayEvent ? (
+            <>
+              <Text color="hint" mb={1}>
+                Сегодня:
+              </Text>
+              <Text fontSize="xl" fontWeight="bold">
+                {templates.find((t) => t.id === todayEvent.template_id)?.title}
+              </Text>
+              <Text color="hint">
+                {new Date(todayEvent.date).toLocaleTimeString()}
+              </Text>
+            </>
+          ) : (
+            <Text color="hint">Сегодня тренировки ещё не было</Text>
+          )}
+        </Box>
+
+        {/* Last Workout */}
+        {lastWorkout && (
+          <Box bg="sectionBg" borderRadius="xl" p={4} mb={6}>
+            <HStack justify="space-between">
+              <Text color="hint" mb={2}>
+                Последняя тренировка
+              </Text>
+              <Text color="hint" mb={3}>
+                {new Date(lastWorkout.date).toLocaleDateString()}
+              </Text>
+            </HStack>
+            <Text fontSize="xl" fontWeight="bold" mb={3}>
+              {templates.find((t) => t.id === lastWorkout.template_id)?.title}
+            </Text>
+
+            <Button
+              w="100%"
+              borderRadius="xl"
+              onClick={() => {
+                startWorkout(lastWorkout.template_id);
+                navigate("/workout/active");
+              }}
+            >
+              Повторить
+            </Button>
+          </Box>
+        )}
 
         {/* Primary Action */}
         <Button
