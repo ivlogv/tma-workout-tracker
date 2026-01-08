@@ -1,5 +1,10 @@
 import { FC, useEffect, useState } from "react";
-import { hapticFeedback, initData, useSignal } from "@tma.js/sdk-react";
+import {
+  hapticFeedback,
+  initData,
+  useLaunchParams,
+  useSignal,
+} from "@tma.js/sdk-react";
 import { LuChevronLeft } from "react-icons/lu";
 import {
   Box,
@@ -8,7 +13,7 @@ import {
   Text,
   Button,
   IconButton,
-//   Separator,
+  //   Separator,
 } from "@chakra-ui/react";
 
 import { Page } from "@/components/Page";
@@ -25,6 +30,7 @@ export const Settings: FC = () => {
   const [events, setEvents] = useState<WorkoutEvent[]>([]);
   const [reminders, setReminders] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const lp = useLaunchParams();
 
   // Загружаем данные (если нужно)
   useEffect(() => {
@@ -65,16 +71,18 @@ export const Settings: FC = () => {
     <Page back showNav={false}>
       <Flex direction="column" color="text">
         {/* Header */}
-        <Flex align="center" gap={2} mb={6}>
-          <IconButton
-            aria-label="Back"
-            color="text"
-            size="xs"
-            colorPalette="gray"
-            onClick={() => history.back()}
-          >
-            <LuChevronLeft size={20} />
-          </IconButton>
+        <Flex align="center" gap={2} mb={8}>
+          {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
+            <IconButton
+              aria-label="Back"
+              color="text"
+              size="xs"
+              colorPalette="gray"
+              onClick={() => history.back()}
+            >
+              <LuChevronLeft size={20} />
+            </IconButton>
+          )}
           <Heading fontSize="2xl">Settings</Heading>
         </Flex>
 

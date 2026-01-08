@@ -17,10 +17,12 @@ import { WorkoutEvent } from "@/types/workout";
 
 import { formatDate, formatDuration } from "@/utils/format";
 import { LuChevronLeft } from "react-icons/lu";
+import { useLaunchParams } from "@tma.js/sdk-react";
 
 export const WorkoutDetails: FC = () => {
   const { workoutId } = useParams();
   const [event, setEvent] = useState<WorkoutEvent | null>(null);
+  const lp = useLaunchParams();
 
   useEffect(() => {
     const events = loadEvents();
@@ -31,17 +33,19 @@ export const WorkoutDetails: FC = () => {
   if (!event) {
     return (
       <Page back>
-        <Flex direction="column" minH="100%" color="text" >
-          <Flex mb={4}>
-            <IconButton
-              aria-label="Back"
-              color="text"
-              size="xs"
-              colorPalette="gray"
-              onClick={() => history.back()}
-            >
-              <LuChevronLeft size={20} />
-            </IconButton>
+        <Flex direction="column" minH="100%" color="text">
+          <Flex mb={8}>
+            {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
+              <IconButton
+                aria-label="Back"
+                color="text"
+                size="xs"
+                colorPalette="gray"
+                onClick={() => history.back()}
+              >
+                <LuChevronLeft size={20} />
+              </IconButton>
+            )}
           </Flex>
 
           <Flex flex="1" align="center" justify="center">
@@ -56,16 +60,18 @@ export const WorkoutDetails: FC = () => {
     <Page back>
       <Flex direction="column" minH="100%" color="text">
         {/* Header */}
-        <Flex align="center" gap={2} mb={2} >
-          <IconButton
-            aria-label="Back"
-            color="text"
-            size="xs"
-            colorPalette="gray"
-            onClick={() => history.back()}
-          >
-            <LuChevronLeft size={20} />
-          </IconButton>
+        <Flex align="center" gap={2} mb={8}>
+          {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
+            <IconButton
+              aria-label="Back"
+              color="text"
+              size="xs"
+              colorPalette="gray"
+              onClick={() => history.back()}
+            >
+              <LuChevronLeft size={20} />
+            </IconButton>
+          )}
           <Heading fontSize="2xl">{formatDate(event.date)}</Heading>
         </Flex>
 
@@ -90,7 +96,7 @@ export const WorkoutDetails: FC = () => {
                 >
                   {exercise.name}
                 </Text>
-                  {/* Sets & Reps */}
+                {/* Sets & Reps */}
                 <Text color="hint">3x12</Text>
               </Flex>
 

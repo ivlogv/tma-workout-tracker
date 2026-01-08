@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { hapticFeedback } from "@tma.js/sdk-react";
+import { hapticFeedback, useLaunchParams } from "@tma.js/sdk-react";
 import {
   Box,
   Flex,
@@ -19,12 +19,14 @@ import { useWorkoutStore } from "@/storage/workoutStore";
 export const ActiveWorkout: FC = () => {
   const { activeEvent, templates, toggleExercise, finishWorkout } =
     useWorkoutStore();
+  const lp = useLaunchParams();
 
   if (!activeEvent) {
     return (
       <Page back showNav={false}>
         <Flex direction="column" minH="100%" color="text">
-          <Flex align="center" gap={2} mb={6}>
+          <Flex align="center" gap={2} mb={8}>
+            {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
             <IconButton
               aria-label="Back"
               color="text"
@@ -33,7 +35,7 @@ export const ActiveWorkout: FC = () => {
               onClick={() => history.back()}
             >
               <LuChevronLeft size={20} />
-            </IconButton>
+            </IconButton>)}
             <Heading fontSize="2xl">No active workout</Heading>
           </Flex>
           <Text color="hint">Start a new workout from the main screen.</Text>

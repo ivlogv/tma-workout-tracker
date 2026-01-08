@@ -10,7 +10,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { hapticFeedback } from "@tma.js/sdk-react";
+import { hapticFeedback, useLaunchParams } from "@tma.js/sdk-react";
 
 import { Page } from "@/components/Page";
 
@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 export const WorkoutSelectPage: FC = () => {
   const navigate = useNavigate();
   const { startWorkout } = useWorkoutStore();
+  const lp = useLaunchParams();
 
   const [templates, setTemplates] = useState<WorkoutTemplate[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
@@ -54,7 +55,8 @@ export const WorkoutSelectPage: FC = () => {
     <Page back>
       <Flex direction="column" minH="100%" color="text">
         {/* Header */}
-        <Flex align="center" gap={2} mb={6}>
+        <Flex align="center" gap={2} mb={8}>
+          {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
           <IconButton
             aria-label="Back"
             color="text"
@@ -63,7 +65,7 @@ export const WorkoutSelectPage: FC = () => {
             onClick={() => history.back()}
           >
             <LuChevronLeft size={20} />
-          </IconButton>
+          </IconButton>)}
           <Heading fontSize="2xl">Choose workout</Heading>
         </Flex>
 

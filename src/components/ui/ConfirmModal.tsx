@@ -29,7 +29,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = ({
         <Dialog.Content
           bg="secondaryBg"
           borderRadius="2xl"
-          _dark={{ bg: "secondaryBg" }}
+          _dark={{ bg: "sectionBg" }}
         >
           <Dialog.CloseTrigger />
 
