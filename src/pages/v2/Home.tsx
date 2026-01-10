@@ -52,11 +52,6 @@ export const Home: FC = () => {
   useEffect(() => {
     if (!mainButton) return;
     const hasTemplates = templates.length > 0;
-    // const hasCompletedToday = events.some(
-    //   (e) =>
-    //     new Date(e.date).toDateString() === new Date().toDateString() &&
-    //     e.is_completed
-    // );
 
     let handler: () => void;
     if (!hasTemplates) {
@@ -69,6 +64,7 @@ export const Home: FC = () => {
         window.location.hash = "#/workouts/new";
       };
     } else if (selectedWorkout?.eventId) {
+      alert(selectedWorkout.eventId);
       mainButton.setParams({
         text: "Старт",
         isVisible: true,
@@ -86,7 +82,7 @@ export const Home: FC = () => {
     mainButton.onClick(handler);
 
     return () => mainButton.offClick(handler);
-  }, [templates, events]);
+  }, [selectedWorkout?.eventId, templates, events, mainButton, window.location.hash]);
 
   // Handle workout start
   const handleStart = useCallback(() => {
