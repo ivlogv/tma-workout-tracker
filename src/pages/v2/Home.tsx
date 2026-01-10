@@ -1,5 +1,5 @@
 import { FC, useEffect, useState, useMemo, useCallback } from "react";
-import { LuSettings as SettingsIcon } from "react-icons/lu";
+import { LuSettings as SettingsIcon, LuCheck } from "react-icons/lu";
 import {
   Box,
   Flex,
@@ -7,9 +7,9 @@ import {
   IconButton,
   Text,
   Button,
-  HStack,
+  VStack,
 } from "@chakra-ui/react";
-import { Status } from "@/components/ui/status";
+import { motion } from "framer-motion";
 
 import { loadTemplates, loadEvents } from "@/storage/workouts";
 import { WorkoutTemplate, WorkoutEvent } from "@/types/workout";
@@ -19,27 +19,27 @@ import { Page } from "@/components/Page";
 import { useWorkoutStore } from "@/storage/workoutStore";
 import { mainButton } from "@tma.js/sdk-react";
 
+const MotionBox = motion.create(Box);
+
 export const Home: FC = () => {
   const [templates, setTemplates] = useState<WorkoutTemplate[]>([]);
   const [events, setEvents] = useState<WorkoutEvent[]>([]);
   const { startWorkout } = useWorkoutStore();
+  const [selectedWorkout, setSelectedWorkout] = useState<{
+    eventId: string;
+    templateId: string;
+  } | null>(null);
 
   const navigate = useNavigate();
   const onOpenSettings = () => navigate("/settings");
   //const onStartWorkout = () => navigate("/workout/start");
   const onViewHistory = () => navigate("/history");
 
-  const todayEvent = useMemo(() => {
-    const today = new Date().toDateString();
-    return events.find((e) => new Date(e.date).toDateString() === today);
-  }, [events, templates]);
-
-  const lastWorkout = useMemo(() => {
+  const lastWorkouts = useMemo(() => {
     return [...events]
       .filter((e) => e.is_completed)
-      .sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      )[0];
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 3);
   }, [events]);
 
   // Load data
@@ -52,41 +52,52 @@ export const Home: FC = () => {
   useEffect(() => {
     if (!mainButton) return;
     const hasTemplates = templates.length > 0;
-    const hasCompletedToday = events.some(
-      (e) =>
-        new Date(e.date).toDateString() === new Date().toDateString() &&
-        e.is_completed
-    );
+    // const hasCompletedToday = events.some(
+    //   (e) =>
+    //     new Date(e.date).toDateString() === new Date().toDateString() &&
+    //     e.is_completed
+    // );
 
     let handler: () => void;
     if (!hasTemplates) {
-      mainButton.setParams({ text: "Добавить", isVisible: true });
+      mainButton.setParams({
+        text: "Добавить тренировку",
+        isVisible: true,
+        hasShineEffect: true,
+      });
       handler = () => {
-        window.location.hash = "#/workouts/start";
+        window.location.hash = "#/workouts/new";
       };
-    } else if (!hasCompletedToday) {
-      mainButton.setParams({ text: "Старт", isVisible: true });
+    } else if (selectedWorkout?.eventId) {
+      mainButton.setParams({
+        text: "Старт",
+        isVisible: true,
+        hasShineEffect: true,
+      });
       // handler = () => alert("Отметить тренировку");
       handler = handleStart;
     } else {
-      mainButton.setParams({ text: "Добавить 2", isVisible: true });
+      mainButton.setParams({ text: "Выбрать тренировку", isVisible: true });
       handler = () => {
-        window.location.hash = "#/workouts/new";
+        window.location.hash = "#/workouts/start";
       };
     }
 
     mainButton.onClick(handler);
 
-    return () => {
-      mainButton.offClick(handler);
-    };
+    return () => mainButton.offClick(handler);
   }, [templates, events]);
 
   // Handle workout start
   const handleStart = useCallback(() => {
-    startWorkout("t1"); // или выбранный шаблон
+    if (selectedWorkout) {
+      // alert(selectedWorkout.templateId);
+      startWorkout(selectedWorkout.templateId);
+      navigate("/workout/active");
+      return;
+    }
     navigate("/workout/start");
-  }, [navigate, startWorkout]);
+  }, [selectedWorkout, navigate, startWorkout]);
 
   // Convert events → workouts
   const workouts = useMemo(
@@ -136,60 +147,29 @@ export const Home: FC = () => {
     ).length;
   }, [events]);
 
-  const weekProgress = useMemo(() => {
-    const now = new Date();
-    const start = new Date(now);
-    start.setDate(now.getDate() - now.getDay());
-    const days = Array.from({ length: 7 }).map((_, i) => {
-      const d = new Date(start);
-      d.setDate(start.getDate() + i);
-      const completed = events.some(
-        (e) =>
-          e.is_completed && new Date(e.date).toDateString() === d.toDateString()
-      );
-      return { day: d, completed };
-    });
-    return days;
-  }, [events]);
-
   return (
     <Page showNav back={false}>
       <Flex direction="column">
         {/* Header */}
-        <Flex align="center" justify="space-between" mb={8}>
-          <Heading fontSize="2xl">Workouts</Heading>
+        <VStack alignItems="flex-start">
+          <Flex align="center" justify="space-between" w="100%" mb={8}>
+            <Heading fontSize="2xl">Workouts</Heading>
 
-          <IconButton
-            aria-label="Settings"
-            onClick={onOpenSettings}
-            variant="ghost"
-            color="hint"
-            p={2}
-            mr={-2}
-          >
-            <SettingsIcon size={22} />
-          </IconButton>
-        </Flex>
-
-        {/* Week Progress */}
-        <Box bg="sectionBg" borderRadius="xl" p={4} mb={2}>
-          <Flex justify="space-between">
-            {weekProgress.map((d, i) => (
-              <Box key={i} textAlign="center">
-                <Text fontSize="xs" color="hint">
-                  {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"][i]}
-                </Text>
-                <Text fontSize="xl">
-                  {d.completed ? (
-                    <Status size="lg" colorPalette="cyan" />
-                  ) : (
-                    <Status size="lg" colorPalette="gray"/>
-                  )}
-                </Text>
-              </Box>
-            ))}
+            <IconButton
+              aria-label="Settings"
+              onClick={onOpenSettings}
+              variant="ghost"
+              color="hint"
+              p={2}
+              mr={-2}
+            >
+              <SettingsIcon size={22} />
+            </IconButton>
           </Flex>
-        </Box>
+          {/* <Text color="hint" mb={4}>
+          Your personal workout tracker //добавить баджи с кол-вом дней подряд
+        </Text> */}
+        </VStack>
 
         {/* Stats */}
         <Box bg="sectionBg" borderRadius="xl" p={4} mb={2}>
@@ -212,50 +192,73 @@ export const Home: FC = () => {
           </Flex>
         </Box>
 
-        {/* Today's Workout */}
-        <Box bg="sectionBg" borderRadius="xl" p={4} mb={2}>
-          {todayEvent ? (
-            <>
-              <Text color="hint" mb={1}>
-                Сегодня:
-              </Text>
-              <Text fontSize="xl" fontWeight="bold">
-                {templates.find((t) => t.id === todayEvent.template_id)?.title}
-              </Text>
-              <Text color="hint">
-                {new Date(todayEvent.date).toLocaleTimeString()}
-              </Text>
-            </>
-          ) : (
-            <Text color="hint">Сегодня тренировки ещё не было</Text>
-          )}
-        </Box>
-
         {/* Last Workout */}
-        {lastWorkout && (
+        {lastWorkouts.length > 0 && (
           <Box bg="sectionBg" borderRadius="xl" p={4} mb={6}>
-            <HStack justify="space-between">
-              <Text color="hint" mb={2}>
-                Последняя тренировка
-              </Text>
-              <Text color="hint" mb={3}>
-                {new Date(lastWorkout.date).toLocaleDateString()}
-              </Text>
-            </HStack>
-            <Text fontSize="xl" fontWeight="bold" mb={3}>
-              {templates.find((t) => t.id === lastWorkout.template_id)?.title}
+            <Text color="hint" mb={3}>
+              Последние тренировки
             </Text>
 
-            <Button
-              w="100%"
-              borderRadius="xl"
-              onClick={() => {
-                startWorkout(lastWorkout.template_id);
-                navigate("/workout/active");
-              }}
-            >
-              Повторить
-            </Button>
+            <Flex direction="column" gap={2}>
+              {lastWorkouts.map((w) => {
+                const template = templates.find((t) => t.id === w.template_id);
+                const isSelected = selectedWorkout?.eventId === w.id;
+
+                return (
+                  <Flex
+                    key={w.id}
+                    justify="space-between"
+                    align="center"
+                    bg={isSelected ? "accentBg" : "bg"}
+                    borderRadius="lg"
+                    p={2}
+                    cursor="pointer"
+                    onClick={() =>
+                      setSelectedWorkout((prev) =>
+                        prev?.eventId === w.id
+                          ? null
+                          : { eventId: w.id, templateId: w.template_id }
+                      )
+                    }
+                    transition="0.15s ease"
+                  >
+                    <Box>
+                      <Text
+                        fontWeight="bold"
+                        fontSize="md"
+                        color={isSelected ? "accentText" : "text"}
+                      >
+                        {template?.title || "Тренировка"}
+                      </Text>
+                      <Text color="hint" fontSize="sm">
+                        {new Date(w.date).toLocaleDateString()}
+                      </Text>
+                    </Box>
+
+                    {/* Анимированная галочка */}
+                    <MotionBox
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={
+                        isSelected
+                          ? { scale: 1, opacity: 1 }
+                          : { scale: 0, opacity: 0 }
+                      }
+                      transition={{ duration: 0.15 }}
+                      w="24px"
+                      h="24px"
+                      borderRadius="full"
+                      bg="accent"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      color="accentText"
+                    >
+                      <LuCheck size={24} />
+                    </MotionBox>
+                  </Flex>
+                );
+              })}
+            </Flex>
           </Box>
         )}
 
@@ -271,7 +274,7 @@ export const Home: FC = () => {
           _hover={{ opacity: 0.9 }}
           fontSize="lg"
         >
-          Start
+          {selectedWorkout?.eventId ? "Start" : "Select workout"}
         </Button>
 
         {/* Secondary Action */}
