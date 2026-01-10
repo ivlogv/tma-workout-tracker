@@ -18,7 +18,6 @@ import { Page } from "@/components/Page";
 // import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { useWorkoutStore } from "@/storage/workoutStore";
 import { mainButton } from "@tma.js/sdk-react";
-import { nav } from "framer-motion/client";
 
 const MotionBox = motion.create(Box);
 
