@@ -18,6 +18,7 @@ import { Page } from "@/components/Page";
 // import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { useWorkoutStore } from "@/storage/workoutStore";
 import { mainButton } from "@tma.js/sdk-react";
+import { nav } from "framer-motion/client";
 
 const MotionBox = motion.create(Box);
 
@@ -64,7 +65,7 @@ export const Home: FC = () => {
         window.location.hash = "#/workouts/new";
       };
     } else if (selectedWorkout?.eventId) {
-      alert(selectedWorkout.eventId);
+      // alert(selectedWorkout.eventId);
       mainButton.setParams({
         text: "Старт",
         isVisible: true,
@@ -73,16 +74,21 @@ export const Home: FC = () => {
       // handler = () => alert("Отметить тренировку");
       handler = handleStart;
     } else {
-      mainButton.setParams({ text: "Выбрать тренировку", isVisible: true });
+      mainButton.setParams({
+        text: "Выбрать тренировку",
+        isVisible: true,
+        hasShineEffect: false,
+      });
       handler = () => {
         window.location.hash = "#/workouts/start";
+        // navigate("/workout/active");
       };
     }
 
     mainButton.onClick(handler);
 
     return () => mainButton.offClick(handler);
-  }, [selectedWorkout?.eventId, templates, events, mainButton, window.location.hash]);
+  }, [selectedWorkout?.eventId, templates, events, mainButton, navigate]);
 
   // Handle workout start
   const handleStart = useCallback(() => {
@@ -205,7 +211,7 @@ export const Home: FC = () => {
                     key={w.id}
                     justify="space-between"
                     align="center"
-                    bg={isSelected ? "accentBg" : "bg"}
+                    bg="sectionBg"
                     borderRadius="lg"
                     p={2}
                     cursor="pointer"
