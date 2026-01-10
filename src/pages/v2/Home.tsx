@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { Page } from "@/components/Page";
 // import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { useWorkoutStore } from "@/storage/workoutStore";
-import { mainButton } from "@tma.js/sdk-react";
+import { mainButton, useLaunchParams } from "@tma.js/sdk-react";
 
 const MotionBox = motion.create(Box);
 
@@ -29,6 +29,7 @@ export const Home: FC = () => {
     eventId: string;
     templateId: string;
   } | null>(null);
+  const lp = useLaunchParams();
 
   const navigate = useNavigate();
   const onOpenSettings = () => navigate("/settings");
@@ -70,7 +71,6 @@ export const Home: FC = () => {
         isVisible: true,
         hasShineEffect: true,
       });
-      // handler = () => alert("Отметить тренировку");
       handler = handleStart;
     } else {
       mainButton.setParams({
@@ -78,10 +78,7 @@ export const Home: FC = () => {
         isVisible: true,
         hasShineEffect: false,
       });
-      handler = () => {
-        window.location.hash = "#/workouts/start";
-        // navigate("/workout/active");
-      };
+      handler = handleStart
     }
 
     mainButton.onClick(handler);
@@ -264,6 +261,7 @@ export const Home: FC = () => {
         )}
 
         {/* Primary Action */}
+        {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
         <Button
           onClick={handleStart}
           bg="button"
@@ -276,7 +274,7 @@ export const Home: FC = () => {
           fontSize="lg"
         >
           {selectedWorkout?.eventId ? "Start" : "Select workout"}
-        </Button>
+        </Button>)}
 
         {/* Secondary Action */}
         <Button
