@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { hapticFeedback, useLaunchParams } from "@tma.js/sdk-react";
+import { FC, useEffect } from "react";
+import { hapticFeedback, mainButton, useLaunchParams } from "@tma.js/sdk-react";
 import {
   Box,
   Flex,
@@ -22,6 +22,13 @@ export const ActiveWorkout: FC = () => {
     useWorkoutStore();
   const lp = useLaunchParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+      mainButton?.setParams({
+        text: "Finish",
+        hasShineEffect: false,
+      });
+    }, []);
 
   const handleFinish = () => {
     if (hapticFeedback.isSupported()) {
@@ -153,18 +160,20 @@ export const ActiveWorkout: FC = () => {
           ))}
         </VStack>
 
-        <Button
-          mt={6}
-          w="100%"
-          borderRadius="xl"
-          py={6}
-          bg="button"
-          color="buttonText"
-          _active={{ opacity: 0.7 }}
-          onClick={handleFinish}
-        >
-          Finish
-        </Button>
+        {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
+          <Button
+            mt={6}
+            w="100%"
+            borderRadius="xl"
+            py={6}
+            bg="button"
+            color="buttonText"
+            _active={{ opacity: 0.7 }}
+            onClick={handleFinish}
+          >
+            Finish
+          </Button>
+        )}
       </Flex>
     </Page>
   );

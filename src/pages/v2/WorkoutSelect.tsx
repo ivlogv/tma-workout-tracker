@@ -10,7 +10,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { hapticFeedback, useLaunchParams } from "@tma.js/sdk-react";
+import { hapticFeedback, mainButton, useLaunchParams } from "@tma.js/sdk-react";
 
 import { Page } from "@/components/Page";
 
@@ -31,6 +31,10 @@ export const WorkoutSelectPage: FC = () => {
 
   useEffect(() => {
     setTemplates(loadTemplates());
+    mainButton?.setParams({
+      text: "Add new workout",
+      hasShineEffect: false,
+    });
   }, []);
 
   const handleSelect = (id: string) => {
@@ -38,6 +42,11 @@ export const WorkoutSelectPage: FC = () => {
       hapticFeedback.impactOccurred("light");
     }
     setSelected(id);
+
+    mainButton?.setParams({
+      text: "Начать тренировку",
+      hasShineEffect: true,
+    });
   };
 
   const handleStart = () => {
@@ -115,19 +124,21 @@ export const WorkoutSelectPage: FC = () => {
         </Box>
 
         {/* Start Button */}
-        <Button
-          onClick={handleStart}
-          bg="button"
-          color="buttonText"
-          borderRadius="xl"
-          py={6}
-          mt={4}
-          _active={{ opacity: 0.7 }}
-          _hover={{ opacity: 0.9 }}
-          fontSize="lg"
-        >
-          {selected ? "Start Workout" : "Add new"}
-        </Button>
+        {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
+          <Button
+            onClick={handleStart}
+            bg="button"
+            color="buttonText"
+            borderRadius="xl"
+            py={6}
+            mt={4}
+            _active={{ opacity: 0.7 }}
+            _hover={{ opacity: 0.9 }}
+            fontSize="lg"
+          >
+            {selected ? "Start Workout" : "Add new"}
+          </Button>
+        )}
       </Flex>
     </Page>
   );

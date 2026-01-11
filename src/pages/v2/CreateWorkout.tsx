@@ -57,7 +57,7 @@ export const WorkoutTemplateCreate: FC = () => {
     addTemplate(template);
     saveExercises(exercises);
 
-    navigate("/workouts/select");
+    navigate("/workout/start");
   }, [title, description, localExercises, navigate]);
 
   useEffect(() => {
@@ -118,6 +118,7 @@ export const WorkoutTemplateCreate: FC = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Например: Грудь + Трицепс"
                 borderRadius="xl"
+                borderColor="hint"
                 fontSize="16px"
                 py={6}
               />
@@ -132,6 +133,7 @@ export const WorkoutTemplateCreate: FC = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Необязательно"
                 borderRadius="xl"
+                borderColor="hint"
                 fontSize="16px"
                 py={4}
               />
@@ -151,6 +153,7 @@ export const WorkoutTemplateCreate: FC = () => {
                   value={exerciseInput}
                   onChange={(e) => setExerciseInput(e.target.value)}
                   borderRadius="xl"
+                  borderColor="hint"
                   fontSize="16px"
                   py={6}
                 />
