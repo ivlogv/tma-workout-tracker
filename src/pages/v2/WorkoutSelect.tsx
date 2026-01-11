@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -35,7 +35,7 @@ export const WorkoutSelectPage: FC = () => {
       text: "Add new workout",
       hasShineEffect: false,
     });
-  }, []);
+  }, [location.pathname]);
 
   const handleSelect = (id: string) => {
     if (hapticFeedback.isSupported()) {
@@ -49,7 +49,7 @@ export const WorkoutSelectPage: FC = () => {
     });
   };
 
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     if (!selected) {
       navigate("/templates/add");
       return;
@@ -61,7 +61,7 @@ export const WorkoutSelectPage: FC = () => {
 
     startWorkout(selected);
     navigate("/workout/active");
-  };
+  }, [selected, navigate]);
 
   return (
     <Page back>
