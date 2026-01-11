@@ -41,7 +41,10 @@ export const WorkoutSelectPage: FC = () => {
   };
 
   const handleStart = () => {
-    if (!selected) return;
+    if (!selected) {
+      navigate("/templates/add");
+      return;
+    }
 
     if (hapticFeedback.isSupported()) {
       hapticFeedback.impactOccurred("medium");
@@ -57,15 +60,16 @@ export const WorkoutSelectPage: FC = () => {
         {/* Header */}
         <Flex align="center" gap={2} mb={8}>
           {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
-          <IconButton
-            aria-label="Back"
-            color="text"
-            size="xs"
-            colorPalette="gray"
-            onClick={() => history.back()}
-          >
-            <LuChevronLeft size={20} />
-          </IconButton>)}
+            <IconButton
+              aria-label="Back"
+              color="text"
+              size="xs"
+              colorPalette="gray"
+              onClick={() => history.back()}
+            >
+              <LuChevronLeft size={20} />
+            </IconButton>
+          )}
           <Heading fontSize="2xl">Choose workout</Heading>
         </Flex>
 
@@ -83,7 +87,12 @@ export const WorkoutSelectPage: FC = () => {
                 onClick={() => handleSelect(t.id)}
               >
                 <Flex direction="column" align="flex-start">
-                  <Text fontWeight="medium" color={selected === t.id ? "button" : "text"}>{t.title}</Text>
+                  <Text
+                    fontWeight="medium"
+                    color={selected === t.id ? "button" : "text"}
+                  >
+                    {t.title}
+                  </Text>
                   {t.description && (
                     <Text fontSize="sm" color="hint">
                       {t.description}
@@ -116,9 +125,8 @@ export const WorkoutSelectPage: FC = () => {
           _active={{ opacity: 0.7 }}
           _hover={{ opacity: 0.9 }}
           fontSize="lg"
-          disabled={!selected}
         >
-          Start
+          {selected ? "Start Workout" : "Add new"}
         </Button>
       </Flex>
     </Page>

@@ -62,7 +62,7 @@ export const Home: FC = () => {
         hasShineEffect: true,
       });
       handler = () => {
-        window.location.hash = "#/workouts/new";
+        window.location.hash = "#/templates/add";
       };
     } else if (selectedWorkout?.eventId) {
       // alert(selectedWorkout.eventId);
@@ -192,74 +192,68 @@ export const Home: FC = () => {
 
         {/* Last Workouts */}
         {lastWorkouts.length > 0 && (
-          <Box>
-            <Text color="hint" p={2}>
-              Последние тренировки
-            </Text>
-            <Box bg="sectionBg" borderRadius="xl" p={4} mb={6}>
-              <Flex direction="column" gap={2}>
-                {lastWorkouts.map((w) => {
-                  const template = templates.find(
-                    (t) => t.id === w.template_id
-                  );
-                  const isSelected = selectedWorkout?.eventId === w.id;
+          <Box bg="sectionBg" borderRadius="xl" p={4} mb={6}>
+            <Text color="sectionHeaderText">Последние тренировки</Text>
+            <Flex direction="column" gap={2}>
+              {lastWorkouts.map((w) => {
+                const template = templates.find((t) => t.id === w.template_id);
+                const isSelected = selectedWorkout?.eventId === w.id;
 
-                  return (
-                    <Flex
-                      key={w.id}
-                      justify="space-between"
-                      align="center"
-                      bg="sectionBg"
-                      borderRadius="lg"
-                      p={2}
-                      cursor="pointer"
-                      onClick={() =>
-                        setSelectedWorkout((prev) =>
-                          prev?.eventId === w.id
-                            ? null
-                            : { eventId: w.id, templateId: w.template_id }
-                        )
-                      }
-                      transition="0.15s ease"
-                    >
-                      <Box>
-                        <Text
-                          fontWeight="bold"
-                          fontSize="md"
-                          color={isSelected ? "accentText" : "text"}
-                        >
-                          {template?.title || "Тренировка"}
-                        </Text>
-                        <Text color="hint" fontSize="sm">
-                          {new Date(w.date).toLocaleDateString()}
-                        </Text>
-                      </Box>
-
-                      {/* Анимированная галочка */}
-                      <MotionBox
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={
-                          isSelected
-                            ? { scale: 1, opacity: 1 }
-                            : { scale: 0, opacity: 0 }
-                        }
-                        transition={{ duration: 0.15 }}
-                        w="24px"
-                        h="24px"
-                        borderRadius="full"
-                        bg="accent"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        color="accentText"
+                return (
+                  <Flex
+                    key={w.id}
+                    justify="space-between"
+                    align="center"
+                    bg="sectionBg"
+                    borderRadius="lg"
+                    p={2}
+                    cursor="pointer"
+                    onClick={() =>
+                      setSelectedWorkout((prev) =>
+                        prev?.eventId === w.id
+                          ? null
+                          : { eventId: w.id, templateId: w.template_id }
+                      )
+                    }
+                    transition="0.15s ease"
+                  >
+                    <Box>
+                      <Text
+                        fontWeight="bold"
+                        fontSize="md"
+                        color={isSelected ? "accentText" : "text"}
                       >
-                        <LuCheck size={24} />
-                      </MotionBox>
-                    </Flex>
-                  );
-                })}
-              </Flex>
-            </Box>
+                        {template?.title || "Тренировка"}
+                      </Text>
+                      <Text color="hint" fontSize="sm">
+                        {new Date(w.date).toLocaleDateString()}
+                      </Text>
+                    </Box>
+
+                    {/* Анимированная галочка */}
+                    <MotionBox
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={
+                        isSelected
+                          ? { scale: 1, opacity: 1 }
+                          : { scale: 0, opacity: 0 }
+                      }
+                      transition={{ duration: 0.15 }}
+                      w="24px"
+                      h="24px"
+                      borderRadius="full"
+                      bg="accent"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      color="accentText"
+                    >
+                      <LuCheck size={24} />
+                    </MotionBox>
+                  </Flex>
+                );
+              })}
+            </Flex>
           </Box>
         )}
 

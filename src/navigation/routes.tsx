@@ -10,6 +10,7 @@ import { Settings } from "@/pages/v2/Settings";
 import { WorkoutHistory } from "@/pages/v2/WorkoutHistory";
 import { WorkoutDetails } from "@/pages/v2/WorkoutDetails";
 import { WorkoutSelectPage } from "@/pages/v2/WorkoutSelect";
+import { WorkoutTemplateCreate } from "@/pages/v2/CreateWorkout";
 
 interface Route {
   path: string;
@@ -29,4 +30,5 @@ export const routes: Route[] = [
   { path: "/history", Component: WorkoutHistory, title: "History" },
   { path: "/history/:workoutId", Component: WorkoutDetails, title: "Workout Details" },
   { path: "/workout/start", Component: WorkoutSelectPage, title: "Select Workout" },
+  { path: "/templates/add", Component: WorkoutTemplateCreate, title: "Add Template" },
 ];

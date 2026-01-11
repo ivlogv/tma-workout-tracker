@@ -15,11 +15,22 @@ import { LuCheck, LuChevronLeft } from "react-icons/lu";
 
 import { Page } from "@/components/Page";
 import { useWorkoutStore } from "@/storage/workoutStore";
+import { useNavigate } from "react-router-dom";
 
 export const ActiveWorkout: FC = () => {
   const { activeEvent, templates, toggleExercise, finishWorkout } =
     useWorkoutStore();
   const lp = useLaunchParams();
+  const navigate = useNavigate();
+
+  const handleFinish = () => {
+    if (hapticFeedback.isSupported()) {
+      hapticFeedback.impactOccurred("medium");
+    }
+
+    finishWorkout();
+    navigate("/");
+  };
 
   if (!activeEvent) {
     return (
@@ -27,15 +38,16 @@ export const ActiveWorkout: FC = () => {
         <Flex direction="column" minH="100%" color="text">
           <Flex align="center" gap={2} mb={8}>
             {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
-            <IconButton
-              aria-label="Back"
-              color="text"
-              size="xs"
-              colorPalette="gray"
-              onClick={() => history.back()}
-            >
-              <LuChevronLeft size={20} />
-            </IconButton>)}
+              <IconButton
+                aria-label="Back"
+                color="text"
+                size="xs"
+                colorPalette="gray"
+                onClick={() => history.back()}
+              >
+                <LuChevronLeft size={20} />
+              </IconButton>
+            )}
             <Heading fontSize="2xl">No active workout</Heading>
           </Flex>
           <Text color="hint">Start a new workout from the main screen.</Text>
@@ -149,12 +161,7 @@ export const ActiveWorkout: FC = () => {
           bg="button"
           color="buttonText"
           _active={{ opacity: 0.7 }}
-          onClick={() => {
-            if (hapticFeedback.isSupported()) {
-              hapticFeedback.impactOccurred("medium");
-            }
-            finishWorkout();
-          }}
+          onClick={handleFinish}
         >
           Finish
         </Button>
