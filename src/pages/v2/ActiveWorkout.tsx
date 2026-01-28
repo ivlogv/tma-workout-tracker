@@ -28,6 +28,11 @@ export const ActiveWorkout: FC = () => {
         text: "Finish",
         hasShineEffect: false,
       });
+      mainButton?.onClick(handleFinish);
+
+      return () => {
+        mainButton?.offClick(handleFinish);
+      };
     }, []);
 
   const handleFinish = () => {
@@ -36,6 +41,7 @@ export const ActiveWorkout: FC = () => {
     }
 
     finishWorkout();
+    alert("Workout finished!");
     navigate("/");
   };
 

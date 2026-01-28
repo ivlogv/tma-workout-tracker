@@ -48,7 +48,8 @@ export const WorkoutSelectPage: FC = () => {
 
       handler = handleAddNew;
     } else if (selected) {
-      mainButton?.setParams({
+      mainButton.setParams({
+        isVisible: true,
         text: "Начать тренировку",
         hasShineEffect: true,
       });
@@ -61,7 +62,7 @@ export const WorkoutSelectPage: FC = () => {
     mainButton.onClick(handler);
 
     return () => mainButton.offClick(handler);
-  }, [templates, mainButton, navigate]);
+  }, [templates, selected, mainButton, navigate]);
 
   const handleAddNew = () => {
     if (hapticFeedback.isSupported()) {
