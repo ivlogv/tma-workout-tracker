@@ -155,7 +155,7 @@ export const WorkoutSelectPage: FC = () => {
         {/* Start Button */}
         {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
           <Button
-            onClick={handleStart}
+            onClick={selected ? handleStart : handleAddNew}
             bg="button"
             color="buttonText"
             borderRadius="xl"

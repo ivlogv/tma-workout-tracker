@@ -42,6 +42,16 @@ export function useWorkoutStore() {
     localStorage.setItem(EXERCISES_KEY, JSON.stringify(exercises));
   }, [exercises]);
 
+  // ---------- ADD TEMPLATE ----------
+  const addTemplate = (template: WorkoutTemplate) => {
+    setTemplates((prev) => [...prev, template]);
+  };
+  
+  // ---------- ADD EXERCISES ----------
+  const addExercises = (items: WorkoutExercise[]) => {
+    setExercises((prev) => [...prev, ...items]);
+  };
+
   // ---------- START WORKOUT ----------
   const startWorkout = (templateId: string) => {
     const templateExercises = exercises
@@ -68,9 +78,7 @@ export function useWorkoutStore() {
     setActiveEvent({
       ...activeEvent,
       exercises: activeEvent.exercises.map((ex) =>
-        ex.id === exerciseId
-          ? { ...ex, is_completed: !ex.is_completed }
-          : ex
+        ex.id === exerciseId ? { ...ex, is_completed: !ex.is_completed } : ex,
       ),
     });
   };
@@ -133,6 +141,9 @@ export function useWorkoutStore() {
     events,
     exercises,
     activeEvent,
+
+    addTemplate,
+    addExercises,
 
     startWorkout,
     toggleExercise,

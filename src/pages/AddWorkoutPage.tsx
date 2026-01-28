@@ -1,13 +1,16 @@
 import { FC, useState, useEffect } from "react";
 import { Page } from "@/components/Page";
 import { Section, Input, List } from "@telegram-apps/telegram-ui";
-import { addTemplate } from "@/storage/workouts";
+// import { addTemplate } from "@/storage/workouts";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { mainButton } from "@tma.js/sdk-react";
+import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 
 export const AddWorkoutPage: FC = () => {
   const navigate = useNavigate();
+
+  const { addTemplate } = useWorkoutStore();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -38,7 +41,7 @@ export const AddWorkoutPage: FC = () => {
     return () => {
       mainButton.offClick(handleClick);
     };
-  }, [title, description, navigate]);
+  }, [title, description, navigate, addTemplate]);
 
   return (
     <Page back>
