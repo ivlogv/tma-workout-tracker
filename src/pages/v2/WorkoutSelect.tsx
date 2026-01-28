@@ -31,27 +31,55 @@ export const WorkoutSelectPage: FC = () => {
 
   useEffect(() => {
     setTemplates(loadTemplates());
-    mainButton?.setParams({
-      text: "Add new workout",
-      hasShineEffect: false,
-    });
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mainButton) return;
+
+    const hasTemplates = templates.length > 0;
+    let handler: () => void;
+
+    if (!hasTemplates) {
+      mainButton.setParams({
+        text: "Добавить тренировку",
+        isVisible: true,
+        hasShineEffect: true,
+      });
+
+      handler = handleAddNew;
+    } else if (selected) {
+      mainButton?.setParams({
+        text: "Начать тренировку",
+        hasShineEffect: true,
+      });
+
+      handler = handleStart;
+    } else {
+      handler = () => {};
+    }
+
+    mainButton.onClick(handler);
+
+    return () => mainButton.offClick(handler);
+  }, [templates, mainButton, navigate]);
+
+  const handleAddNew = () => {
+    if (hapticFeedback.isSupported()) {
+      hapticFeedback.impactOccurred("medium");
+    }
+    navigate("/templates/add");
+  };
 
   const handleSelect = (id: string) => {
     if (hapticFeedback.isSupported()) {
       hapticFeedback.impactOccurred("light");
     }
     setSelected(id);
-
-    mainButton?.setParams({
-      text: "Начать тренировку",
-      hasShineEffect: true,
-    });
   };
 
   const handleStart = useCallback(() => {
     if (!selected) {
-      navigate("/templates/add");
+      //navigate("/templates/add");
       return;
     }
 
