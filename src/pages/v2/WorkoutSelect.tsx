@@ -46,7 +46,13 @@ export const WorkoutSelectPage: FC = () => {
         hasShineEffect: true,
       });
 
-      handler = handleAddNew;
+      handler = () => {
+        if (hapticFeedback.isSupported()) {
+          hapticFeedback.impactOccurred("medium");
+        }
+
+        navigate("/templates/add");
+      };
     } else if (selected) {
       mainButton.setParams({
         isVisible: true,
