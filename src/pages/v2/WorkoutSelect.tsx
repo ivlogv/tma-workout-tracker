@@ -46,13 +46,7 @@ export const WorkoutSelectPage: FC = () => {
         hasShineEffect: true,
       });
 
-      handler = () => {
-        if (hapticFeedback.isSupported()) {
-          hapticFeedback.impactOccurred("medium");
-        }
-
-        navigate("/templates/add");
-      };
+      handler = handleAddNew;
     } else if (selected) {
       mainButton.setParams({
         isVisible: true,
@@ -70,12 +64,12 @@ export const WorkoutSelectPage: FC = () => {
     return () => mainButton.offClick(handler);
   }, [templates, selected, mainButton, navigate]);
 
-  // const handleAddNew = () => {
-  //   if (hapticFeedback.isSupported()) {
-  //     hapticFeedback.impactOccurred("medium");
-  //   }
-  //   navigate("/templates/add");
-  // };
+  const handleAddNew = useCallback(() => {
+    if (hapticFeedback.isSupported()) {
+      hapticFeedback.impactOccurred("medium");
+    }
+    navigate("/templates/add");
+  }, [navigate]);
 
   const handleSelect = (id: string) => {
     if (hapticFeedback.isSupported()) {
