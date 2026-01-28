@@ -56,7 +56,7 @@ export const WorkoutSelectPage: FC = () => {
 
       handler = handleStart;
     } else {
-      handler = () => {};
+      handler = handleAddNew;
     }
 
     mainButton.onClick(handler);
@@ -71,13 +71,6 @@ export const WorkoutSelectPage: FC = () => {
     navigate("/templates/add");
   }, [navigate]);
 
-  const handleSelect = (id: string) => {
-    if (hapticFeedback.isSupported()) {
-      hapticFeedback.impactOccurred("light");
-    }
-    setSelected(id);
-  };
-
   const handleStart = useCallback(() => {
     if (!selected) {
       //navigate("/templates/add");
@@ -91,6 +84,13 @@ export const WorkoutSelectPage: FC = () => {
     startWorkout(selected);
     navigate("/workout/active");
   }, [selected, navigate]);
+
+  const handleSelect = (id: string) => {
+    if (hapticFeedback.isSupported()) {
+      hapticFeedback.impactOccurred("light");
+    }
+    setSelected(id);
+  };
 
   return (
     <Page back>

@@ -30,6 +30,7 @@ export const AddWorkoutPage: FC = () => {
       });
 
       mainButton.hide();
+      alert("Тренировка добавлена!");
       navigate("/");
     };
 
