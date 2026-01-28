@@ -70,12 +70,12 @@ export const WorkoutSelectPage: FC = () => {
     return () => mainButton.offClick(handler);
   }, [templates, selected, mainButton, navigate]);
 
-  const handleAddNew = () => {
-    if (hapticFeedback.isSupported()) {
-      hapticFeedback.impactOccurred("medium");
-    }
-    navigate("/templates/add");
-  };
+  // const handleAddNew = () => {
+  //   if (hapticFeedback.isSupported()) {
+  //     hapticFeedback.impactOccurred("medium");
+  //   }
+  //   navigate("/templates/add");
+  // };
 
   const handleSelect = (id: string) => {
     if (hapticFeedback.isSupported()) {
