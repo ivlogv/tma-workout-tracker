@@ -269,7 +269,7 @@ export const Home: FC = () => {
             mb={4}
             _active={{ opacity: 0.7 }}
             _hover={{ opacity: 0.9 }}
-            fontSize="lg"
+            fontSize="md"
           >
             {selectedWorkout?.eventId ? "Начать" : "Выбрать тренировку"}
           </Button>

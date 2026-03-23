@@ -40,7 +40,7 @@ export const BottomNav: FC = () => {
         transition={{ duration: 0.38, ease: [0.22, 0.61, 0.36, 1] }}
         style={{
           position: "fixed",
-          bottom: "8px",
+          bottom: "24px",
           left: "18px",
           transform: "translateX(-50%)",
           width: "calc(100% - 36px)",
