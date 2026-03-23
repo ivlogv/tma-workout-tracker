@@ -30,6 +30,7 @@ export const Home: FC = () => {
     templateId: string;
   } | null>(null);
   const lp = useLaunchParams();
+  console.log(lp);
 
   const navigate = useNavigate();
   const onOpenSettings = () => navigate("/settings");
