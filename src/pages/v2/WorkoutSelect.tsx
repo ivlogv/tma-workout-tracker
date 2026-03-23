@@ -94,7 +94,7 @@ export const WorkoutSelectPage: FC = () => {
   };
 
   return (
-    <Page back>
+    <Page back showNav={false}>
       <Flex direction="column" minH="100%" color="text">
         {/* Header */}
         <Flex align="center" gap={2} mb={8}>

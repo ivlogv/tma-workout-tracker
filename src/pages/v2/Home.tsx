@@ -177,7 +177,7 @@ export const Home: FC = () => {
               <Text fontSize="3xl" mb={1}>
                 {streak}
               </Text>
-              <Text color="hint">day streak</Text>
+              <Text color="hint">дней подряд</Text>
             </Box>
 
             <Box w="1px" h="40px" bg="hint" opacity={0.2} />
@@ -186,7 +186,7 @@ export const Home: FC = () => {
               <Text fontSize="3xl" mb={1}>
                 {weekCount}
               </Text>
-              <Text color="hint">this week</Text>
+              <Text color="hint">на этой неделе</Text>
             </Box>
           </Flex>
         </Box>
@@ -269,7 +269,7 @@ export const Home: FC = () => {
             mb={4}
             _active={{ opacity: 0.7 }}
             _hover={{ opacity: 0.9 }}
-            fontSize="md"
+            fontSize="ыь"
           >
             {selectedWorkout?.eventId ? "Начать" : "Выбрать тренировку"}
           </Button>
