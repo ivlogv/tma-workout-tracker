@@ -15,12 +15,14 @@ import { v4 as uuid } from "uuid";
 import { mainButton, useLaunchParams } from "@tma.js/sdk-react";
 
 import { Page } from "@/components/Page";
-import { addTemplate, saveExercises } from "@/storage/workouts";
+// import { addTemplate, saveExercises } from "@/storage/workouts";
 import { useNavigate } from "react-router-dom";
 import { LuChevronLeft, LuPlus } from "react-icons/lu";
+import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 
 export const WorkoutTemplateCreate: FC = () => {
   const navigate = useNavigate();
+  const { addTemplate, addExercises } = useWorkoutStore();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -55,7 +57,7 @@ export const WorkoutTemplateCreate: FC = () => {
     }));
 
     addTemplate(template);
-    saveExercises(exercises);
+    addExercises(exercises);
 
     navigate("/workout/start");
   }, [title, description, localExercises, navigate]);

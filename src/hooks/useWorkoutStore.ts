@@ -16,6 +16,9 @@ export function useWorkoutStore() {
   const [activeEvent, setActiveEvent] = useState<WorkoutEvent | null>(null);
   const [startTime, setStartTime] = useState<number | null>(null);
 
+  useEffect(() => {
+    console.log("STORE TEMPLATES UPDATED", templates);
+  }, [templates]);
   // ---------- LOAD ----------
   useEffect(() => {
     try {
@@ -46,7 +49,7 @@ export function useWorkoutStore() {
   const addTemplate = (template: WorkoutTemplate) => {
     setTemplates((prev) => [...prev, template]);
   };
-  
+
   // ---------- ADD EXERCISES ----------
   const addExercises = (items: WorkoutExercise[]) => {
     setExercises((prev) => [...prev, ...items]);

@@ -90,6 +90,7 @@ export const WorkoutSelectPage: FC = () => {
       hapticFeedback.impactOccurred("light");
     }
     setSelected(id);
+    alert(`Selected template ID: ${id}`);
   };
 
   return (

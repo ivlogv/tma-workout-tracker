@@ -23,17 +23,20 @@ export const ActiveWorkout: FC = () => {
   const lp = useLaunchParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-      mainButton?.setParams({
-        text: "Finish",
-        hasShineEffect: false,
-      });
-      mainButton?.onClick(handleFinish);
+  console.log("ACTIVE STORE TEMPLATES", templates);
+  console.log("ACTIVE EVENT", activeEvent);
 
-      return () => {
-        mainButton?.offClick(handleFinish);
-      };
-    }, []);
+  useEffect(() => {
+    mainButton?.setParams({
+      text: "Finish",
+      hasShineEffect: false,
+    });
+    mainButton?.onClick(handleFinish);
+
+    return () => {
+      mainButton?.offClick(handleFinish);
+    };
+  }, []);
 
   const handleFinish = () => {
     if (hapticFeedback.isSupported()) {
@@ -94,10 +97,10 @@ export const ActiveWorkout: FC = () => {
   }
 
   const completedCount = activeEvent.exercises.filter(
-    (e) => e.is_completed
+    (e) => e.is_completed,
   ).length;
   const progress = Math.round(
-    (completedCount / activeEvent.exercises.length) * 100
+    (completedCount / activeEvent.exercises.length) * 100,
   );
 
   return (

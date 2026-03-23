@@ -58,7 +58,7 @@ export const Home: FC = () => {
     if (!hasTemplates) {
       mainButton.setParams({
         text: "Добавить тренировку",
-        isVisible: true,
+        isVisible: false,
         hasShineEffect: true,
       });
       handler = () => {
@@ -68,14 +68,14 @@ export const Home: FC = () => {
       // alert(selectedWorkout.eventId);
       mainButton.setParams({
         text: "Старт",
-        isVisible: true,
+        isVisible: false,
         hasShineEffect: true,
       });
       handler = handleStart;
     } else {
       mainButton.setParams({
         text: "Выбрать тренировку",
-        isVisible: true,
+        isVisible: false,
         hasShineEffect: false,
       });
       handler = handleStart;
@@ -151,7 +151,7 @@ export const Home: FC = () => {
         {/* Header */}
         <VStack alignItems="flex-start">
           <Flex align="center" justify="space-between" w="100%" mb={8}>
-            <Heading fontSize="2xl">Workouts</Heading>
+            <Heading fontSize="2xl">Тренировки</Heading>
 
             <IconButton
               aria-label="Settings"
@@ -258,7 +258,7 @@ export const Home: FC = () => {
         )}
 
         {/* Primary Action */}
-        {!["ios", "android"].includes(lp?.tgWebAppPlatform) && (
+        {(
           <Button
             onClick={handleStart}
             bg="button"
@@ -270,7 +270,7 @@ export const Home: FC = () => {
             _hover={{ opacity: 0.9 }}
             fontSize="lg"
           >
-            {selectedWorkout?.eventId ? "Start" : "Select workout"}
+            {selectedWorkout?.eventId ? "Начать" : "Выбрать тренировку"}
           </Button>
         )}
 
@@ -281,7 +281,7 @@ export const Home: FC = () => {
           color="link"
           _active={{ opacity: 0.7 }}
         >
-          History
+          История
         </Button>
       </Flex>
     </Page>
